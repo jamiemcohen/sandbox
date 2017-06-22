@@ -1,10 +1,14 @@
 var express = require('express');
 var app = express();
-var path = require("path");
 
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
 app.use(express.static('public'));
-app.get('/', function(req,res){
-    res.sendFile(path.join(__dirname+'/views/index.html'));
+
+app.set("view options", { layout: false } );
+app.get('/', function(req, res) {
+	res.render('index', {title="Sandbox"});					  
 });
 
 app.listen(3000);
+
