@@ -5,20 +5,66 @@ body {
 }
 #map {
     width: 100%;
-    height: 600px;
+    height: 800px;
+    display: inline;
+    float: left;
 }
 
-button:active { 
+#menu-top{
+    width: 100%;
+    height: 10em;
+    background-color: #F5A623;
+    display: inline;
+    float: left;
+   
+}
+
+button:active, button:hover { 
     background-color: #F5A623;
     border-color: #F5A623;
 }
 
 .marker-menu{
-    display: none;
+   
     background-color: #F5A623;
-    height: 10em;
+    height: 2em;
+    
 
 }
+
+.create-menu{
+   
+    background-color: #F5A623;
+    height: 2em;
+    display: none;
+
+}
+
+.archive-menu{
+   
+    background-color: #F5A623;
+    height: 2em;
+    display: none;
+
+}
+.settings-menu{
+   
+    background-color: #F5A623;
+    height: 2em;
+    display: none;
+
+}
+.upload-menu{
+   
+    background-color: #F5A623;
+    height: 2em;
+    display: none;
+
+}
+
+
+
+
 .draggable-marker {
     width: 20px;
     margin: 12px;
@@ -27,3 +73,6 @@ button:active {
 }
 
 
+leaflet-popup-content { 
+    width:400px; 
+}

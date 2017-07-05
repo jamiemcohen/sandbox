@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html>
     
-<head>
+<head ng-app="markers">
+
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css' rel='stylesheet'>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">    
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,16 +16,25 @@
 
 <body>
     <% include partials/header%>
-    <% include partials/markers-menu %>
+    <div id="menu-top">
+        <% include partials/markers-menu%>
+        <% include partials/create-menu%>
+        <% include partials/upload-menu%>
+        <% include partials/archive-menu%>
+        <% include partials/settings-menu%>
+    </div>
     <div id="map"></div>
-    
-
+    <div id="static map"></div>
+        
+        
+        
+   
+    </div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-	<script src="lib/index.js"></script>
     <script src="lib/MenuController.js"></script>  
-
+    <script src="/lib/index.js"></script>
 </body>
 
 
