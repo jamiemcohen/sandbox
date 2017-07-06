@@ -8,7 +8,6 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 mongoose.connect('mongodb://localhost:27017/myproject'); //connect to database
 var Marker = require('./models/markers.js');         //get schema  
 
-
 //set server specifications
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
