@@ -10,13 +10,15 @@ var Marker = require('./models/markers.js');         //get schema
 
 //set server specifications
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
+app.set("views", __dirname + "/public");
 app.use(express.static('public'));
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
+
+
 
 app.set("view options", { layout: false } );
 app.get('/', function(req, res) {

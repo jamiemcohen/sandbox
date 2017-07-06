@@ -2,7 +2,7 @@
 var markers = [], // an array containing all the markers added to the map
 		markersCount = 0; // the number of the added markers
     
-    map = new L.Map( 'map', { zoomControl: true } ).setView( [ 36.1627, -86.7816 ], 15 );
+    map = new L.Map( 'mapLocator', { zoomControl: true } ).setView( [ 36.1627, -86.7816 ], 15 );
     var initMap = function () {
 		// create a map in the "map" div, set the view to a given place and zoom
 	  
@@ -16,9 +16,12 @@ var markers = [], // an array containing all the markers added to the map
 	}
     initMap();
    
+    var menu = document.getElementById('create-menu');
     
     map.on('dblclick', function(e){
             addMarker(e);
+            
+        
    });
     
     function addMarker(e){
@@ -28,6 +31,8 @@ var markers = [], // an array containing all the markers added to the map
             draggable: true
             
         }).addTo(map);
+        $('#latitude').val( e.latlng.lat);
+        $('#longitude').val( e.latlng.lng);
         var popup = L.popup({
             minWidth : 300 
         }).setContent('<p>Latitude: '+ e.latlng.lat + '</p>'+
@@ -37,18 +42,3 @@ var markers = [], // an array containing all the markers added to the map
     };
    
  
-	
-
-   
-  
-	
-
-
-
-
-
-
-
-
-	
-

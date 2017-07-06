@@ -1,6 +1,13 @@
+.pure-g {
+  font-family: "Helvetica", "Arial", sans-serif;
+}
+.pure-g [class *= "pure-u"] {
+  font-family: "Roboto"; san-serif;;
+}
+
 body {
     margin: 0;
-    font-family: "Roboto";san-serif;
+    
     background: #E4E4E4
 }
 #map {
@@ -8,6 +15,11 @@ body {
     height: 800px;
     display: inline;
     float: left;
+}
+#mapLocator {
+    width: 60%;
+    height: 100vh;
+    display: none;
 }
 
 #menu-top{
@@ -35,8 +47,10 @@ button:active, button:hover {
 .create-menu{
    
     background-color: #F5A623;
-    height: 2em;
+    height: 100vh;
+    width: 100%;
     display: none;
+    
 
 }
 

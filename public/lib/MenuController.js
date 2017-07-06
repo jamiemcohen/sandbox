@@ -16,9 +16,11 @@ $('#create-button').click(function() {
     if (createOpen == false){
         openCreateMenu();
         $('#map').hide();
+        $('#mapLocator').show();
     }else{
         closeCreateMenu();
         $('#map').show();
+        $('#mapLocator').hide();
         openMarkersMenu();
     }
                                 
@@ -96,6 +98,7 @@ function closeMarkersMenu(){
 
 function openCreateMenu(){
      hideAllMenusExcept("create");
+    $('#menu-top').css('width', '40%');
     $(".create-menu").show();
     $("#create-button").css("background-color", "#F5A623");
     createOpen = true;
@@ -103,6 +106,7 @@ function openCreateMenu(){
 
 
 function closeCreateMenu(){
+     $('#menu-top').css('width', '100%');
     $(".create-menu").hide();
     $("#create-button").css("background-color", "#E4E4E4");
     createOpen = false;

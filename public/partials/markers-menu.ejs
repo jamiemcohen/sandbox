@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+    <head>
+       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    </head>
+    <body ng-controller = "markerController">
+        <div class= "marker-menu"  id= "marker-menu">
+            <div class = "pure-menu-horizontal pure-menu-scrollable">
+                       <h3>Markers</h3>
+                    <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat = 'marker in markers'>
+                        <li class="pure-menu-item"> <a href="#" class="pure-menu-link">
+                            <p>{{marker.title}}</p>
+                            <p>{{marker.description}}</p>
+                            </a></li>
+                        
+                      </ul>
+            </div>
+    </div> 
+        
+
+    </body>
+</html>
