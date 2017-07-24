@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html ng-app ="myApp">
     <head></head>
     <body>
     <div class= "upload-menu" id = "upload-menu">
-            <div class = "pure-menu-horizontal">
-                       <h3>Upload Media</h3>
-                    <ul class="pure-menu-list" id= "marker-menu-list">
-                          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-            
-                      </ul>
+        <form class="pure-form pure-form-aligned" >
+    <fieldset ng-controller = "filestackCtrl">
+            <h3>Upload Artifacts</h3>
+           <div class="pure-control-group">
+               <label> Select Media Type </label> 
+               <div class="dropdown">
+                    <button onclick="toggleUploadMenu()" class ="dropbtn" >Upload Image    ˇ </button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#" id='image'>Upload Image</a>
+                        <a href="#" id='youtube'>Youtube Link</a>
+                        <a href="#" id ='spotify'>Spotify Link</a>
+                    </div>
+                </div>
             </div>
+            <div class="pure-control-group">
+                <label for="media-title">Title</label>
+                <input id="media-title" ng-model = "archive.title" type="text" placeholder="Title">
+            </div>
+            <div id='media-type-image'>
+                <div class="pure-control-group">
+                    <label for="Picture">Picture</label>
+                    <input filepicker type="filepicker" data-fp-services="computer,facebook,webcam,box" on-success="onSuccess(event.fpfile)" class="pure-button" />
+                </div>
+            </div>
+            <div id="media-type-youtube">
+                <div class="pure-control-group">
+                    <label for="youtube-link">Youtube URL</label>
+                    <input id="youtube-link" type="text"  ng-model= "youtube" placeholder="Youtube URL">
+                </div>
+            </div>
+             <div id="media-type-spotify">
+                <div class="pure-control-group">
+                    <label for="spotify-link">Spotify URL</label>
+                    <input id="spotify-link" ng-model= "spotify" type="text"  placeholder="Spotify URL">
+                </div>
+            </div>
+        
+            
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary"  ng-click = "createArchive()">Save</button>
+            </div>   
+            
+    </fieldset>
+</form>
     </div>    
     </body>
 </html>

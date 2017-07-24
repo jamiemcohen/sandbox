@@ -4,5 +4,13 @@ Prototyping a spatial finding aid for Vanderbilt's Spatial Learning and Mobility
 This project currently uses:
 Javascript
 HTML
+EJS
 CSS
+Javascript
+Jquery
+Node.js
+Express
+MongoDB
+Mongoose
+Angular
 Leaflet with OpenStreetMapsTiles

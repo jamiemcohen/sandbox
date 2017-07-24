@@ -11,11 +11,12 @@ var markers = [], // an array containing all the markers added to the map
 	    L.tileLayer( 'http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	    }).addTo( map );
-
+        
     
 	}
     initMap();
    
+
     
     map.on('dblclick', function(e){
             addMarker(e);
@@ -36,7 +37,8 @@ var markers = [], // an array containing all the markers added to the map
         thisMarker.bindPopup(popup).openPopup();
     };
    
- 
+    
+   
 	
 
    

@@ -1,0 +1,10 @@
+{
+  "name": "sandbox",
+  "main": "server.js",
+  "dependencies": {
+    "angular-filepicker": "~1.1.4",
+    "angular": "^1.5.2",
+    "angular-route": "^1.5.2",
+    "filepicker-js": "~2.4.18"
+  }
+}

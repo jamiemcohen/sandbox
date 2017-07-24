@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
-    <head></head>
-    <body>
-    <div class= "archive-menu" id= "archive-menu">
-            <div class = "pure-menu-horizontal">
-                       <h3>Manage Archive</h3>
-                    <ul class="pure-menu-list" id= "marker-menu-list">
-                          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
-            
-                      </ul>
+<html >
+    <head>
+    </head>
+    <body ng-app = "myApp" >
+    <div class= "archive-menu" id= "archive-menu" ng-controller = 'archiveController'>
+            <div class = "pure-menu-horizontal pure-menu-scrollable">
+                    <h3>View Archive</h3>
+                    <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'archive in archives'>
+                        <li class="pure-menu-item"> <a href="#" class="pure-menu-link">
+                            <p>{{archive.title}}</p>
+                            <img ng-src = {{archive.url}} class= "img-thumbnail">
+                            <iframe ng-src = {{archive.url}} frameborder="0" allowtransparency="true" class="music-thumbnail"></iframe>
+                        </a></li>
+                    </ul>
             </div>
     </div>    
     </body>

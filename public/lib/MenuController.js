@@ -115,7 +115,7 @@ function closeCreateMenu(){
 }
 
 function openArchiveMenu(){
-    $('#map').show();
+    $('#map').show(); 
     hideAllMenusExcept("archive"); 
     $(".archive-menu").show();
         $("#archive-button").css("background-color", "#F5A623");
@@ -124,6 +124,7 @@ function openArchiveMenu(){
 }
 
 function closeArchiveMenu(){
+    
     $(".archive-menu").hide();
     $("#archive-button").css("background-color", "#E4E4E4");
     archiveOpen = false;
@@ -133,7 +134,8 @@ function closeArchiveMenu(){
 
 function openUploadMenu(){
     $('#map').show();
-    hideAllMenusExcept("upload"); 
+    hideAllMenusExcept("upload");
+    $('#menu-top').css('height', '70vh');
     $(".upload-menu").show();
         $("#upload-button").css("background-color", "#F5A623");
         uploadOpen = true;
@@ -142,6 +144,7 @@ function openUploadMenu(){
 
 function closeUploadMenu(){
     $(".upload-menu").hide();
+    $('#menu-top').css('height', '40vh');
     $("#upload-button").css("background-color", "#E4E4E4");
     uploadOpen = false;
 
@@ -164,3 +167,57 @@ function closeSettingsMenu(){
 
 
 }
+
+
+//-------------UPLOAD-MENU CONTROLS--------------------
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function toggleUploadMenu() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+$('#youtube').click(function(){
+    $('#media-type-spotify').hide();
+    $('#media-type-image').hide();
+    $('#media-type-youtube').show();
+    $('.dropbtn').html('Youtube Link  ˇ ');
+    
+
+});
+
+$('#spotify').click(function(){
+    $('#media-type-spotify').show();
+    $('#media-type-image').hide();
+    $('#media-type-youtube').hide();
+    $('.dropbtn').html('Spotify Link  ˇ ');
+});
+
+$('#image').click(function(){
+    $('#media-type-spotify').hide();
+    $('#media-type-image').show();
+    $('#media-type-youtube').hide();
+    $('.dropbtn').html('Upload Image  ˇ ');
+});
+
+
+//-------------MARKERS MENU CONTROLS---------------------------
+
+//-------------CREATE MENU CONTROLS---------------------------
+
+

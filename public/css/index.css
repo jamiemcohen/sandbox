@@ -24,7 +24,7 @@ body {
 
 #menu-top{
     width: 100%;
-    height: 10em;
+    height: 40vh;
     background-color: #F5A623;
     display: inline;
     float: left;
@@ -37,7 +37,8 @@ button:active, button:hover {
 }
 
 .marker-menu{
-   
+   margin-right: 50px;
+    margin-left: 50px;
     background-color: #F5A623;
     height: 2em;
     
@@ -45,7 +46,7 @@ button:active, button:hover {
 }
 
 .create-menu{
-   
+    
     background-color: #F5A623;
     height: 100vh;
     width: 100%;
@@ -55,23 +56,26 @@ button:active, button:hover {
 }
 
 .archive-menu{
-   
+   margin-right: 50px;
+    margin-left: 50px;
     background-color: #F5A623;
-    height: 2em;
+    height: 100vh;
     display: none;
 
 }
 .settings-menu{
-   
+   margin-right: 50px;
+    margin-left: 50px;
     background-color: #F5A623;
     height: 2em;
     display: none;
 
 }
 .upload-menu{
-   
+    margin-right: 50px;
+    margin-left: 50px;
     background-color: #F5A623;
-    height: 2em;
+    height: 100vh;
     display: none;
 
 }
@@ -89,4 +93,122 @@ button:active, button:hover {
 
 leaflet-popup-content { 
     width:400px; 
+}
+
+/*------UPLOAD MENU CSS------*/
+/* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+#media-type-youtube{
+
+    display: none;
+
+}
+
+#media-type-spotify{
+
+    display: none;
+
+}
+
+
+/*-----------CREATE MENU CSS ---------------->*/
+.custom-restricted {
+    height: 160px;
+    width: 300px;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+
+#media-scrollable {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    width:300px;
+
+
+}
+
+.img-thumbnail{
+   max-width: 100px;
+   max-height: 200px;
+
+}
+
+.music-thumbnail{
+    width: 100px;
+    height:100px;
+
+}
+
+.video-thumbnail{
+    width: 200px;
+    height:100px;
+
+}
+
+
+
+/*------MARKERS MENU ITEM-------*/
+.marker-thumbnail{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+    height:80px;
+
+}
+#marker-item{
+    text-align: center;
+    height: 120px;
+    width: 200px;
+
+}
+
+#close-marker-btn{
+    float: right;
+    margin-top: 20px;
+    display: none;
+
 }
