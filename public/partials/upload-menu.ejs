@@ -11,9 +11,9 @@
                <div class="dropdown">
                     <button onclick="toggleUploadMenu()" class ="dropbtn" >Upload Image    ˇ </button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="#" id='image'>Upload Image</a>
-                        <a href="#" id='youtube'>Youtube Link</a>
-                        <a href="#" id ='spotify'>Spotify Link</a>
+                        <a href="#" id='image' ng-click= "selectImg()">Upload Image</a>
+                        <a href="#" id='youtube' ng-click= "selectVid()">Youtube Link</a>
+                        <a href="#" id ='spotify' ng-click= "selectMusic()">Spotify Link</a>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,9 @@
             <div id='media-type-image'>
                 <div class="pure-control-group">
                     <label for="Picture">Picture</label>
-                    <input filepicker type="filepicker" data-fp-services="computer,facebook,webcam,box" on-success="onSuccess(event.fpfile)" class="pure-button" />
+                    
+                    <input filepicker type="filepicker"  data-fp-services="computer,facebook,webcam,box" on-success="onSuccess(event.fpfile)" id= "filepicker-btn" class="pure-button" />
+                
                 </div>
             </div>
             <div id="media-type-youtube">

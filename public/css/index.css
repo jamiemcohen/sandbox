@@ -24,11 +24,19 @@ body {
 
 #menu-top{
     width: 100%;
-    height: 40vh;
+    height: 50vh;
     background-color: #F5A623;
     display: inline;
     float: left;
    
+}
+
+#header-close-button{
+    float: right;
+    background-color: transparent;
+    border-radius: 10em;
+    color: white;
+
 }
 
 button:active, button:hover { 
@@ -58,7 +66,7 @@ button:active, button:hover {
 .archive-menu{
    margin-right: 50px;
     margin-left: 50px;
-    background-color: #F5A623;
+    background-color: black;
     height: 100vh;
     display: none;
 
@@ -172,8 +180,8 @@ leaflet-popup-content {
 }
 
 .img-thumbnail{
-   max-width: 100px;
-   max-height: 200px;
+    width: 100px;
+    height: 100px;
 
 }
 
@@ -186,6 +194,12 @@ leaflet-popup-content {
 .video-thumbnail{
     width: 200px;
     height:100px;
+
+}
+
+.media-thumbnail{
+    width: 200px;
+    height:200px;
 
 }
 
@@ -212,3 +226,51 @@ leaflet-popup-content {
     display: none;
 
 }
+
+
+
+/*------ARCHIVE MENU ITEM-------*/
+
+#archive-refresh-btn{
+    float: right;
+    background-color: transparent;
+    border-radius: 10em;
+    color: white;
+}
+
+#delete-archive-btn{
+    background-color:transparent;
+    color: white;
+    border-radius: 10em;
+    float:right;
+
+
+}
+#archive-title{
+    font-weight: 500;
+    color: gray;
+
+
+}
+#archive-menu-list{
+    
+    
+    
+    
+    
+}
+
+#marker-li{
+    width: 300px;
+}
+
+
+#marker-desc{
+width: 280px;
+word-break: break-all;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis; // This is where the magic happens
+}
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StoryLiner &ndash; Editor </title>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">    
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB1KpPTYkE_whSe3MkIcL2u_d_oDfzVRk"></script>
+<script src="/bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
+<script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+
+<script type= "text/javascript" src="../app.js"></script> 
+
+    
+</head>
+
+<body>
+    <% include partials/header%>
+        
+    <div id="menu-top">
+                <button  id = "header-close-button" class = "button-large pure-button">
+                    <i class="material-icons">close</i>
+                </button>
+      
+        <% include partials/markers-menu%>
+        <% include partials/create-menu%>
+        <% include partials/upload-menu%>
+        <% include partials/archive-menu%>
+        <% include partials/settings-menu%>
+    </div>
+    <div id="map"></div>
+    <div id="mapLocator"></div>
+        
+        
+        
+   
+    </div>
+    <script src="../lib/MenuController.js"></script>  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="/lib/index.js"></script>
+    <script src="/lib/mapLocator.js"></script>
+    <script src="/gservice.js"></script>
+</body>
+
+
+
+
+
+
+</html>

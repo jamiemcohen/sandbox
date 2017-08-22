@@ -3,14 +3,25 @@
     <head>
         
     </head>
-    <body ng-controller = "filestackCtrl">
-        <div class= "marker-menu"  id= "marker-menu">
+    <body >
+        <div class= "marker-menu"  id= "marker-menu" ng-controller = "markersCtrl">
             <div class = "pure-menu-horizontal pure-menu-scrollable">
                        <h3>Markers</h3>
                     
-                        <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'file in files' >
-                        <li class="pure-menu-item" id= "marker-item"> <a href="#" class="pure-menu-link">
-                             <img ng-src='{{file.url}}' class="marker-thumbnail"> 
+                        <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'marker in markers' >
+                        <li   id="marker-li" class="pure-menu-item" id= "marker-item"> <a href="#" class="pure-menu-link">
+                            <div id="marker-desc" >
+                                <h3>{{marker.title}}</h3> 
+                            
+                                <p>{{marker.description}}</p>
+                                
+                                <p>{{marker.latitude}}</p>
+                                <p>{{marker.longitude}}</p>
+                                <p>{{marker.media}}</p>
+                            </div>   
+                             
+                            
+                            
                         </a></li>
         
                       </ul>

@@ -39,8 +39,26 @@ module.exports = function(){
                 //If no errors, send it back to the client
                 res.json(archive);
             });     
-        }
+        },
         
+        
+        deleteOne: function(req, res, next){
+            Archive.remove({
+                _id : req.params.id
+            }, function(err, archive) {
+                if (err)res.send(err);
+                
+                res.json(archive);
 
+              /* Archive.find(function(err, archive) {
+                    if (err)
+                        res.send(err)
+                    res.json(archive);
+                });*/
+            });
+
+        
+        }
     }
+        
 };

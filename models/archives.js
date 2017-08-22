@@ -6,6 +6,8 @@ var Schema = mongoose.Schema;
 var archivesSchema = new Schema({
     title: String,
     url: String, 
+    description: { type: String, lowercase: true, required: true, default: "" }, 
+    metadata: { type: [String], lowercase: true, required: true }
 });
 
 

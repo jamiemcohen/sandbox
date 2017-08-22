@@ -4,14 +4,27 @@
     </head>
     <body ng-app = "myApp" >
     <div class= "archive-menu" id= "archive-menu" ng-controller = 'archiveController'>
+        <button class="pure-button" ng-click = 'refresh()' id="archive-refresh-btn">
+                        <i class="material-icons">refresh</i>
+        </button>
             <div class = "pure-menu-horizontal pure-menu-scrollable">
-                    <h3>View Archive</h3>
-                    <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'archive in archives'>
+                    <ul class="pure-menu-list" id= "archive-menu-list" ng-repeat= 'archive in myarchive' >
                         <li class="pure-menu-item"> <a href="#" class="pure-menu-link">
-                            <p>{{archive.title}}</p>
-                            <img ng-src = {{archive.url}} class= "img-thumbnail">
-                            <iframe ng-src = {{archive.url}} frameborder="0" allowtransparency="true" class="music-thumbnail"></iframe>
-                        </a></li>
+                         
+                            <p id="archive-title">{{archive.title}}</p>
+                            
+                            <iframe ng-if="archive.link.includes('spotify') || archive.link.includes('youtube')" ng-src="{{trustSrc(archive.link)}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                            
+                            <img  ng-if="!archive.link.includes('spotify') && !archive.link.includes('youtube')" ng-src = "{{archive.link}}" width="300" height="380">
+                        </a>
+                        <button ng-click= "removeItem(archive._id)" id= "delete-archive-btn" class = "pure-button">
+                                <i class="material-icons">close</i>
+                            </button>
+                        
+                        
+                        </li>
+                        
+                           
                     </ul>
             </div>
     </div>    

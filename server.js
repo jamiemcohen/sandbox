@@ -18,10 +18,31 @@ mongoose.connect('mongodb://localhost:27017/myproject'); //connect to database
 var db = mongoose.connection; //set to variable
 db.on('error', console.error.bind(console, 'connection error:')); //
 
+
 //routes
 var archive = require('./routes/archive.js')(app);  
-var marker = require('./routes/marker.js')(app);         
+var marker = require('./routes/marker.js')(app); 
+var map = require('./routes/map.js')(app);  
+var mapDB = require('./models/maps.js');
 
+var isPath = function(req, res){
+           
+            mapDB.findOne({path: req.params.path}, function(err, map){
+                if(err) {
+                    console.log( req.params.path + " DOES NOT exist");
+                    return false;
+                    
+                    
+                }else{
+                
+                    console.log( req.params.path + " exists");
+                    return true; 
+                }
+               
+                 
+            }); 
+           
+        };
 
 //set view engine to read ejs files instead of html
 app.set("view engine", "ejs");
@@ -36,18 +57,83 @@ app.get('/', function(req, res) {
 	res.render('index');					  
 });
 
+app.get('/editor', function(req, res) {
+	res.render('editor');					  
+});
+
+app.get('/admin', function(req, res) {
+	res.render('admin');					  
+});
+
+app.get('/pqw4ry', function(req, res) {
+	res.render('adminpanel');					  
+});
+
+
+
+//set new dynamic edit routes
+
+app.get('/edit/:path', function(req , res){
+    mapDB.count({path: req.params.path}, function (err, count){ 
+        if(count>0){
+            res.render('editor');
+        }else{
+            res.render('404');
+        }
+        
+    }); 
+    
+});
+
+
+/*app.get('/edit/*', function(req, res){
+       
+        res.render('editor');	
+    
+    
+});*/
+
+
+
+//set new dynamic routes for viewing
+/*
+    app.get('/maps/*', function(req, res){
+        
+    
+    
+    });
+
+
+*/
+
+
+
 app.route('/marker')
     .post(marker.post)
     .get(marker.getAll);
 app.route('/marker/:id')
     .get(marker.getOne);
 
+app.route('/db')
+    .post(map.post)
+    .get(map.getAll);
+app.route('/db/:id')
+    .get(map.getOne)
+    .put(map.addArchive);
+app.route('/db/title/:title')
+    .get(map.getOneTitle);
+app.route('/db/path/:path')
+    .get(map.getOnePath);
+
+
+
 app.route('/archive')
     .post(archive.post)
     .get(archive.getAll);
 app.route('/archive/:id')
     .get(archive.getOne);
-
+app.route('/archive/delete/:id')
+    .delete(archive.deleteOne);
 
 
 

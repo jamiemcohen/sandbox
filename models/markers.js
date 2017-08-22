@@ -4,12 +4,11 @@ var Schema = mongoose.Schema;
 
 //create a Schema
 var markersSchema = new Schema({
-    latitude:{type: Number, required: true},
-    longitude: {type: Number, required: true},
-    title: {type: String, required: true},
-    description: {type: String, required: true},
-    picture: {type: Schema.Types.Mixed, required: true},
-    morePictures: Schema.Types.Mixed, // this is not required
+    latitude: Number,
+    longitude: Number,
+    title: String, 
+    description: String, 
+    media:  [String],
     createdAt: {type: Date, default: Date.now},
     
 });

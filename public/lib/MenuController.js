@@ -1,14 +1,27 @@
-
 var markerOpen = true;// markers menu open as default
 var createOpen = false;
 var uploadOpen = false;
 var settingsOpen = false;
 var archiveOpen = false;
 
+
+$('#header-close-button').click(function() {              
+    $('#menu-top').css('display', 'none'); 
+    $('#archive-button').css('background-color', '#E4E4E4');
+     $('#archive-button').css('color', 'black');
+});
+
+
+
 $('#markers-button').click(function() {              
     
-       openMarkersMenu();
-
+    if (markerOpen == false){
+        openMarkersMenu();
+    } else{
+        closeMarkersMenu();
+        
+    }
+        
                                 
 });
 $('#create-button').click(function() {           
@@ -82,6 +95,8 @@ function hideAllMenusExcept(menu){
 
 function openMarkersMenu(){
     hideAllMenusExcept("markers"); 
+    $('#menu-top').show();
+    $('#menu-top').css('height', '50vh');
     $('#map').show();
     $(".marker-menu").show();
         $("#markers-button").css("background-color", "#F5A623");
@@ -91,13 +106,15 @@ function openMarkersMenu(){
 
 function closeMarkersMenu(){
      $(".marker-menu").hide();
-         $("#markers-button").css("background-color", "#E4E4E4");
+     $("#markers-button").css("background-color", "#E4E4E4");
         markerOpen = false;
 
 }
 
 function openCreateMenu(){
+    $('#header-close-button').hide();
      hideAllMenusExcept("create");
+    $('#menu-top').show();
     $('#menu-top').css('width', '40%');
     $(".create-menu").show();
     $("#create-button").css("background-color", "#F5A623");
@@ -106,6 +123,7 @@ function openCreateMenu(){
 
 
 function closeCreateMenu(){
+     $('#header-close-button').show();
      $('#menu-top').css('width', '100%');
     $(".create-menu").hide();
     $("#create-button").css("background-color", "#E4E4E4");
@@ -115,16 +133,23 @@ function closeCreateMenu(){
 }
 
 function openArchiveMenu(){
+    $('#menu-top').show();
     $('#map').show(); 
     hideAllMenusExcept("archive"); 
+    $('#archive-button').css('color', 'white');
+    $('#menu-top').css('height', '100vh');
+    $('#menu-top').css("background-color", "black");
+    $()
     $(".archive-menu").show();
-        $("#archive-button").css("background-color", "#F5A623");
+        $("#archive-button").css("background-color", "black");
         archiveOpen = true;
 
 }
 
 function closeArchiveMenu(){
-    
+    $('#menu-top').css('height', '40vh');
+    $('#menu-top').css("background-color", "#F5A623");
+    $('#archive-button').css('color', 'black');
     $(".archive-menu").hide();
     $("#archive-button").css("background-color", "#E4E4E4");
     archiveOpen = false;
@@ -133,6 +158,8 @@ function closeArchiveMenu(){
 }
 
 function openUploadMenu(){
+    
+    $('#menu-top').show();
     $('#map').show();
     hideAllMenusExcept("upload");
     $('#menu-top').css('height', '70vh');
@@ -143,6 +170,7 @@ function openUploadMenu(){
 }
 
 function closeUploadMenu(){
+   
     $(".upload-menu").hide();
     $('#menu-top').css('height', '40vh');
     $("#upload-button").css("background-color", "#E4E4E4");
@@ -152,6 +180,7 @@ function closeUploadMenu(){
 }
 
 function openSettingsMenu(){
+    $('#menu-top').show();
    $('#map').show();
     hideAllMenusExcept("settings"); 
     $(".settings-menu").show();
@@ -161,6 +190,7 @@ function openSettingsMenu(){
 }
 
 function closeSettingsMenu(){
+    $('#menu-top').show();
     $(".settings-menu").hide();
     $("#settings-button").css("background-color", "#E4E4E4");
     settingsOpen = false;
@@ -214,6 +244,8 @@ $('#image').click(function(){
     $('#media-type-youtube').hide();
     $('.dropbtn').html('Upload Image  ˇ ');
 });
+
+
 
 
 //-------------MARKERS MENU CONTROLS---------------------------

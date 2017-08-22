@@ -2,87 +2,55 @@
 <html ng-app = "myApp">
     <head></head>
     <body>
-    <div class= "create-menu" id= "create-menu" ng-controller = "markerMakerController">
+    <div class= "create-menu" id= "create-menu" ng-controller = "markerController">
        <h3>Create a New Marker</h3>
      
         <form class="pure-form pure-form-aligned">
     <fieldset>
             <div class="pure-control-group">
                 <label for="title">Title</label>
-                <input id="title" type="text"  ng-model ="title" placeholder="Title"  required>
+                <input id="title" type="text"  ng-model ="marker.title" placeholder="Title"  required>
             </div>
 
             <div class="pure-control-group">
                 <label for="description">Description</label>
-                <textarea id ="description"  ng-model ="description" placeholder="Tell us a story..." ></textarea>
+                <textarea id ="description"  ng-model ="marker.description" placeholder="Tell us a story..." ></textarea>
             </div>
             <div class="pure-control-group">
                 <label for="latitude">Latitude</label>
-                <input id="latitude" type="text"  ng-model ="latitude" placeholder="Latitude">
+                <input id="latitude" type="text"  ng-model ="marker.latitude" placeholder="Latitude">
             </div>    
 
 
             <div class="pure-control-group">
                 <label for="longitude">Longitude</label>
-                <input id="longitude" type="text"    ng-model ="longitude" placeholder="Longitude">
+                <input id="longitude" type="text"    ng-model ="marker.longitude" placeholder="Longitude">
             </div>
             
                 <div id="media-scrollable">
                     <div class="pure-menu pure-menu-scrollable custom-restricted">
                         <a href="#" class="pure-menu-link pure-menu-heading">Select Media</a>
-                        <ul class="pure-menu-list">
+                        <ul class="pure-menu-list" ng-repeat= "archive in archives">
                             <li class="pure-menu-item">
                                 <a href="#" class="pure-menu-link"> 
-                                <img src="https://cdn.filestackcontent.com/CDyMhcUtRAmk9v0myXBr" class="img-thumbnail">
-                                <label class="pure-checkbox">
-                                    <input  type="checkbox"> 
+                                <p>{{archive.title}}</p>
+                                     <iframe  ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" width="200" height="200"   frameborder="0" allowtransparency="true"></iframe>
+                            
+                            <img  ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}" width="200" height="200" >
+                                <label  class="pure-checkbox">
+                                    <input  ng-click= "addMedia($event, archive.url)" type="checkbox"> 
                                 </label>
                                 </a>
                                 
                             </li>
-                             <li class="pure-menu-item">
-                                <a href="#" class="pure-menu-link"> 
-                                <iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A4U2b99X9hSSDjPbHCpIeJj" width="300" height="380" frameborder="0" allowtransparency="true" class="music-thumbnail"></iframe>
-                                <label class="pure-checkbox">
-                                    <input  type="checkbox"> 
-                                </label>
-                                </a>
-                                
-                            </li>
-                               <li class="pure-menu-item">
-                                <a href="#" class="pure-menu-link"> 
-                                <iframe class = "video-thumbnail" src="https://www.youtube.com/embed/efsXlR132ts" frameborder="0" allowfullscreen></iframe>
-                                <label class="pure-checkbox">
-                                    <input  type="checkbox"> 
-                                </label>
-                                </a>
-                                
-                            </li>
-                            <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">
-                              <iframe class = "video-thumbnail" src="https://www.youtube.com/embed/OueyaMoUUt4" frameborder="0" allowfullscreen></iframe>
-                            <label class="pure-checkbox">
-                                <input  type="checkbox"> 
-                            </label>
-                            </a>
-                            </li>
-                        
-                         <li class="pure-menu-item"> 
-                        <a href="#" class="pure-menu-link">
-                                  <iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A0NWPxcsf5vdjdiFUI8NgkP" width="300" height="380" frameborder="0" allowtransparency="true" class="music-thumbnail"></iframe>
-                              <label class="pure-checkbox">
-                                    <input  type="checkbox"> 
-                                </label>
-                        </a>
-                        </li>
-                    </ul>
                             
                         </ul>
+                            
                     </div>
                 </div>
               
             <div class="pure-controls">
-                <button type="submit" class="pure-button pure-button-primary" ng-click = "createMarker()">Save</button>
+                <button type="submit" class="pure-button pure-button-primary" ng-checked= "check" ng-click = "saveMarker()">Save</button>
             </div>
             
             

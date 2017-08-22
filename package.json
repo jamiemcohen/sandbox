@@ -6,7 +6,6 @@
   "dependencies": {
     "@google/maps": "^0.4.1",
     "angular": "^1.6.5",
-    "angular-filepicker": "^1.1.4",
     "angular-route": "^1.6.5",
     "body-parser": "^1.5.2",
     "ejs": "^1.0.0",
