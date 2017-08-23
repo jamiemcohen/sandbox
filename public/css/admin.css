@@ -310,12 +310,14 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 }
 
 
-#maps{
+
+
+
+#manage{
 
     display: none;
 
 }
-
 
 #media-type-youtube{
 
@@ -379,3 +381,47 @@ iframe{
 
 }
 
+#error-log{
+    display: none;
+
+}
+
+.success{
+    width: 100%;
+    background: #84CF84 ;
+    
+
+}
+
+.error{
+    width: 100%;
+    background:#E56675;
+}
+
+
+#map-table{
+
+    width:100%;
+
+
+}
+
+#media-thumbnail {
+    max-height: 100px;
+
+
+
+}
+
+.danger {
+
+    background:#E56675;
+
+}
+
+
+#archive-table{
+    display:none
+
+
+}

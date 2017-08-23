@@ -69,6 +69,29 @@ app.get('/pqw4ry', function(req, res) {
 	res.render('adminpanel');					  
 });
 
+app.get('/pqw4ry/archive/:id', function(req, res) {
+	mapDB.count({_id: req.params.id}, function (err, count){ 
+        if(count>0){
+             res.render('admin-archive');
+        }else{
+            res.render('404');
+        }
+    });
+});
+
+app.get('/pqw4ry/marker/:id', function(req, res) {
+	mapDB.count({_id: req.params.id}, function (err, count){ 
+        if(count>0){
+             res.render('admin-markers');
+        }else{
+            res.render('404');
+        }
+        
+    });
+    
+    
+   					  
+});
 
 
 //set new dynamic edit routes
@@ -124,7 +147,8 @@ app.route('/db/title/:title')
     .get(map.getOneTitle);
 app.route('/db/path/:path')
     .get(map.getOnePath);
-
+app.route('/db/delete/:id')
+    .delete(map.deleteOne);
 
 
 app.route('/archive')

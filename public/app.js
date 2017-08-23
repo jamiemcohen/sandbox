@@ -12,7 +12,6 @@ app.config(function(filepickerProvider){
 
 //creates a new map in the database
 app.controller('createMapCtrl', function($scope, $http){
-    console.log(window.location.href);
     $scope.map = {};
     $scope.map.title = "";
     $scope.map.path = "";
@@ -613,22 +612,170 @@ app.controller('adminUploadController', function($scope, $http){
         console.log($scope.meta.split(','));
         $scope.archive.metadata = $scope.meta.split(',');
         console.log($scope.archive.metadata);
-        $http.post('/archive', $scope.archive)
-            .success(function(data){
-                console.log(JSON.stringify(data));
-                //Clean the form to allow the user to create new archives
-                $scope.archive = {};
-                $scope.youtube = "";
-                $scope.spotify ="";
-                $scope.meta="";
-                console.log('save succesful');
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
+        if(true){
+            successMessage();
+            
+            $http.post('/archive', $scope.archive)
+                .success(function(data){
+                    console.log(JSON.stringify(data));
+                    //Clean the form to allow the user to create new archives
+                    $scope.archive = {};
+                    $scope.youtube = "";
+                    $scope.spotify ="";
+                    $scope.meta="";
+                    console.log('save succesful');
+
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+       }
     };
+    
+    
+var successMessage = function(){
+    $('#error-log').text('Upload Succesful!')
+    $('#error-log').addClass('success');
+    $('#error-log').fadeOut(1000);
+}
 
 });
+
+app.controller('admin-archive-Controller', function($scope, $http, $sce){
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/pqw4ry/archive/', '');
+    $scope.map = {};
+    $scope.myarchive =[];
+         
+    var refreshData = function(){
+        $http.get('../../db/'+ path)
+        .success(function(data){
+           $scope.myarchive = data.myarchive;
+         
+           
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+       
+    
+    
+    };
+    
+    
+    refreshData();
+    
+     $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+    
+    
+    $scope.arrayToString = function(meta){
+        return meta.toString();
+    
+    }
+    
+
+
+});
+
+
+app.controller('admin-markers-Controller', function($scope, $http, $sce){
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/pqw4ry/marker/', '');
+    $scope.map = {};
+    $scope.markers ={};
+    $scope.links = []
+         
+    var refreshData = function(){
+        $http.get('../../db/'+ path)
+        .success(function(data){
+           $scope.markers = data.markers;
+            $scope.links = $scope.markers.media;
+           console.log(data.markers);
+            console.log($scope.markers);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+       
+    
+    
+    };
+    
+    
+    refreshData();
+    
+     $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+    
+    
+   
+
+
+});
+
+
+app.controller('adminMapsController', function($scope, $http, $sce){
+    $scope.maps ={};
+    var refreshData = function(){
+        $http.get('../db')
+        .success(function(data){
+            console.log(JSON.stringify(data));
+           $scope.maps = data;
+                
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    };
+    
+    refreshData();
+    
+    $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+    
+    $scope.showArchiveTable = function(map){
+        var url = 'http://localhost:3000/pqw4ry/archive/' + map
+        window.location.href= url;
+            
+
+    };
+    
+    $scope.showMarkersTable = function(map){
+        var url = 'http://localhost:3000/pqw4ry/marker/' + map
+        window.location.href= url;
+            
+
+    };
+   
+    
+   
+    
+    
+    
+    $scope.removeMap = function(map) {
+        if (confirm('Are you sure you want to delete this?')) {
+        // if the answer is "Ok".
+            $http.delete('/db/delete/'+ map)
+                .success(function(data){
+                    
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+
+                refreshData();
+            };
+        }
+        
+
+});
+
 
 
 

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html ng-app = "myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB1KpPTYkE_whSe3MkIcL2u_d_oDfzVRk"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <title>StoryLiner &ndash; Admin  </title>
+   <script src="/bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <!--<![endif]-->
+    
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="../../css/admin.css">
+        <!--<![endif]-->
+    <script type="text/javascript" src="/app.js"></script>
+
+
+</head>
+<body ng-controller = "admin-archive-Controller">
+    <div  class = 'pure-g'>
+        <div  class = 'pure-u-1'>
+                     <table  class="pure-table pure-table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Metadata</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+
+                            <tbody >
+                                <tr ng-repeat= "archive in myarchive">
+                                    <td>{{archive.title}}</td>
+                                    <td>{{archive.description}}</td>
+                                    <td>{{arrayToString(archive.metadata)}}</td>
+                                    <td><a ng-href = 'archive.link'>
+                                             <img ng-if="!archive.link.includes('spotify') && !archive.link.includes('youtube')" ng-src = "{{archive.link}}" id = "media-thumbnail">
+                <iframe ng-if="archive.link.includes('spotify') || archive.link.includes('youtube')" ng-src="{{trustSrc(archive.link)}}" frameborder="0" allowtransparency="true" id = "media-thumbnail"></iframe>
+                 <div class="overlay">
+                                        
+                                        </a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+            
+        </div> 
+    </div>
+   
+    
+    <script src= "../../lib/admin.js"></script>
+    <script src="/gservice.js"></script>
+
+    
+    
+</body>
+
+</html>

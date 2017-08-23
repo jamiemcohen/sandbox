@@ -76,6 +76,20 @@ module.exports = function(){
 
         });
             
+        },
+        
+         deleteOne: function(req, res, next){
+            Map.remove({
+                _id : req.params.id
+            }, function(err, map) {
+                if (err)res.send(err);
+                
+                res.json(map);
+
+              
+            });
+
+        
         }
         
         
