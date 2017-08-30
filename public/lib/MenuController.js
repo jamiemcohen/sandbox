@@ -17,6 +17,7 @@ $('#markers-button').click(function() {
     
     if (markerOpen == false){
         openMarkersMenu();
+        $('#map').css('width', '100%');
     } else{
         closeMarkersMenu();
         
@@ -28,12 +29,11 @@ $('#create-button').click(function() {
    
     if (createOpen == false){
         openCreateMenu();
-        $('#map').hide();
-        $('#mapLocator').show();
+        $('#map').css('width', '60%');
     }else{
         closeCreateMenu();
-        $('#map').show();
-        $('#mapLocator').hide();
+        $('#map').css('width', '100%');
+        
         openMarkersMenu();
     }
                                 
@@ -43,6 +43,7 @@ $('#archive-button').click(function() {
    
     if (archiveOpen == false){
         openArchiveMenu();
+        $('#map').css('width', '100%');
     }else{
         closeArchiveMenu();
         openMarkersMenu();
@@ -54,6 +55,7 @@ $('#upload-button').click(function() {
    
     if (uploadOpen == false){
         openUploadMenu();
+        $('#map').css('width', '100%');
     }else{
         closeUploadMenu();
         openMarkersMenu();
@@ -64,6 +66,7 @@ $('#settings-button').click(function() {
    
     if (settingsOpen == false){
         openSettingsMenu();
+         $('#map').css('width', '100%');
     }else{
         closeSettingsMenu();
         openMarkersMenu();
@@ -134,7 +137,7 @@ function closeCreateMenu(){
 
 function openArchiveMenu(){
     $('#menu-top').show();
-    $('#map').show(); 
+    $('#map').hide(); 
     hideAllMenusExcept("archive"); 
     $('#archive-button').css('color', 'white');
     $('#menu-top').css('height', '100vh');
@@ -152,7 +155,9 @@ function closeArchiveMenu(){
     $('#archive-button').css('color', 'black');
     $(".archive-menu").hide();
     $("#archive-button").css("background-color", "#E4E4E4");
+    $('#map').show(); 
     archiveOpen = false;
+    
 
 
 }
@@ -251,5 +256,47 @@ $('#image').click(function(){
 //-------------MARKERS MENU CONTROLS---------------------------
 
 //-------------CREATE MENU CONTROLS---------------------------
+
+$('#addMedia-btn').click(function(){
+    $('#archive-panel').toggle();
+    $('#create-form').toggle();
+});
+
+$('#addMedia-btn-back').click(function(){
+    $('#archive-panel').toggle();
+    $('#create-form').toggle();
+
+});
+
+$('#addMedia-btn-myarchive').on('click',function(){
+    $('#media-scrollable-myarchive').toggle();
+    $('#media-scrollable-sandbox').toggle();
+
+});
+
+$('#addMedia-btn-sandbox').on('click', function(){
+    $('#media-scrollable-myarchive').toggle();
+    $('#media-scrollable-sandbox').toggle();
+
+});
+
+
+//-------------ARCHIVE MENU CONTROLS---------------------------
+
+
+$('#myarchive-btn').click(function(){
+   $('#myarchive-btn').css("background-color", "white"); 
+    $('#sandbox-btn').css("background-color", "#333333");
+    $('#myarchive-menu').show();
+    $('#sandbox-menu').hide();
+});
+
+$('#sandbox-btn').click(function(){
+   $('#sandbox-btn').css("background-color", "white");
+    $('#myarchive-btn').css("background-color", "#333333");
+    $('#myarchive-menu').hide();
+    $('#sandbox-menu').show();
+    
+});
 
 

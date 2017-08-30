@@ -190,12 +190,13 @@ app.controller('filestackCtrl', function($scope, $http){
     $scope.map = {};
     $scope.map._id = "";
     $scope.map.myarchive =[];
+    $scope.map.markers =[];
     $http.get('../db/path/'+ path)
         .success(function(data){
             console.log(JSON.stringify(data));
            $scope.map._id = data._id;
            $scope.map.myarchive =data.myarchive;
-                
+            $scope.map.markers = data.markers;
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -250,7 +251,7 @@ app.controller('filestackCtrl', function($scope, $http){
         //add all fields to marker array
         $scope.map.myarchive.push({title: $scope.archive.title, link: $scope.archive.url});
         console.log( $scope.map.myarchive);
-        $http.put('/db/'+ $scope.map._id, {myarchive: $scope.map.myarchive})
+        $http.put('/db/'+ $scope.map._id, {myarchive: $scope.map.myarchive, markers: $scope.map.markers})
             .success(function(data){
                 console.log($scope.map._id);
                 console.log($scope.map.myarchive);
@@ -293,10 +294,6 @@ app.controller('archiveController', function($scope, $http, $sce){
         .success(function(data){
             console.log(JSON.stringify(data));
             $scope.myarchive = data.myarchive ;
-            $scope.apply(function(){
-                $scope.myarchive = data.myarchive ;
-            
-            });
         })
         .error(function(data) {
             console.log('Error: ' + data);
@@ -352,6 +349,12 @@ app.controller('archiveController', function($scope, $http, $sce){
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    
+    
+    $('#archive-button').click(function(){
+        refreshData();
+    
+    });
 });
 
 app.controller('adminArchiveController', function($scope, $http, $sce){
@@ -410,6 +413,12 @@ app.controller('adminArchiveController', function($scope, $http, $sce){
     $("#manage-btn").on('click', function(){
         refreshData();    
     });
+    
+    $scope.edit = function(archive){
+        url = 'http://localhost:3000/pqw4ry/edit/' + archive;
+        window.location.href = url;
+    
+    }
    
     
 });
@@ -467,6 +476,9 @@ app.controller('markerController', [
      $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
+     
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/edit/', '');
     
     $scope.marker = {};
     $scope.marker.title ="";
@@ -475,61 +487,122 @@ app.controller('markerController', [
     $scope.marker.longitude ="";
     $scope.marker.media =[];
     $scope.archives = [];
-    $scope.addMedia = function($event, link){
-        var checkbox = $event.target;
-        if(checkbox.checked) {
-            alert(link);
-            $scope.marker.media.push(link);
-        } else {
-            alert("removing" + link);
-            var index = $scope.marker.media.indexOf(5);
-            if (index > -1) {
-                $scope.marker.media.splice(index, 1);
-            }
-        }
-       
-    }
+    $scope.id = "";
+    $scope.addedLinks = [];
+    $scope.map = {};
+    $scope.map.markers = [];
+    $scope.map.myarchive = [];
     
-    
-    
-    $scope.saveMarker = function(){
-        
-        
-        $scope.marker.latitude = $("#latitude").val(); 
-        $scope.marker.longitude = $("#longitude").val();
-        console.log("New Marker: \n" + 
-              "Title: " + $scope.title + 
-              "\nDescription: " + $scope.marker.description +
-              "\nLatitude: "+ $scope.marker.latitude +
-              "\nLongitude: "+ $scope.marker.longitude +
-               "\nLinks:" + $scope.marker.media);    
-        //now save and plot this data
-        
-        $http.post('/marker', $scope.marker)
-                .success(function(data){
-                   
-                    //Clean the form to allow the user to create new archives
-                    $scope.marker = {};
-                    $scope.check = false;
-                    console.log('save succesful');
-                })
-                .error(function(data) {
-                    console.log('Error: ' + data);
-                });
-       
-
+    //refresh admin archive
+    var refreshArchiveData = function(){
+        $http.get('/archive')
+            .success(function(data){
+                $scope.archives = data;
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     };
-    
-     $http.get('/archive')
+  
+    //refresh personal archive
+     var refreshMyArchiveData = function(){
+        $http.get('../db/path/'+ path)
         .success(function(data){
-           
             console.log(JSON.stringify(data));
-            $scope.archives = data;
+           $scope.id = data._id;
+           $scope.map.myarchive = data.myarchive;
+            $scope.map.markers = data.markers;
+           $scope.map = data; 
+           
         })
         .error(function(data) {
             console.log('Error: ' + data);
+        });
+    
+       
+        $http.get('../db/'+  $scope.id )
+        .success(function(data){
+            $scope.map.myarchive = data.myarchive ;
+            $scope.map.markers = data.markers;
+            $scope.map = data; 
+            console.log($scope.map.markers);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+    
+    };
+    
+    
+    refreshMyArchiveData();
+    refreshArchiveData();
+    
+    
+    
+    $scope.addMedia = function(link){
+        
+         if(!$scope.addedLinks.includes(link)){ //link not previously added
+            $scope.addedLinks.push(link);
+         }
+       
+    }
+    
+    $scope.removeMedia = function(link){
+        var index = $scope.addedLinks.indexOf(link);
+        if (index > -1) {
+            $scope.addedLinks.splice(index, 1);
+        };
+        
+    
+    }
+    
+    $scope.refresh= function(){
+            refreshMyArchiveData();
+            refreshArchiveData();
+    
+    };
+    
+    $('#addMedia-btn').click(function(){
+        refreshMyArchiveData();
+        refreshArchiveData();                                             
     });
     
+    $scope.saveMarker = function(){
+        
+        //push each link onto marker media list
+        for(var i=0; i<$scope.addedLinks.length; i ++){
+                $scope.marker.media.push($scope.addedLinks[i]);
+                
+        }
+        console.log($scope.marker.media);
+        //get lat and long value -- often not updated because of jquery input method
+        $scope.marker.latitude = $("#latitude").val(); 
+        $scope.marker.longitude = $("#longitude").val();
+        
+        //push the marker to the marker array of a map
+        refreshMyArchiveData();
+        console.log($scope.map.markers);
+        if($scope.marker.media == null){
+            $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude});
+        }else{
+        $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude, media: $scope.marker.media});
+        }
+        //post the marker
+         $http.put('/db/'+ $scope.id, {myarchive: $scope.map.myarchive, markers: $scope.map.markers})
+            .success(function(data){
+                console.log(JSON.stringify(data));
+                //Clean the form to allow the user to create new markers
+                $scope.addedLinks= [];
+                $scope.marker = {};
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+    };
+    
+ 
     
     
    
@@ -539,17 +612,48 @@ app.controller('markerController', [
     
 
 app.controller('markersCtrl', function($scope, $http, gservice){
-    $scope.markers = []; 
-     console.log(window.location.href);
-    $http.get('/marker')
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/edit/', '');
+    $scope.map = {};
+    $scope.map.markers = []; 
+    $scope.map.id =""
+    
+    var refreshMarkerData = function(){
+        $http.get('../db/path/'+ path)
         .success(function(data){
             console.log(JSON.stringify(data));
-            $scope.markers = data;
-             
+           $scope.map.id = data._id;
+           $scope.map = data; 
+           
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    
+       
+        $http.get('../db/'+  $scope.map.id )
+        .success(function(data){
+         
+            $scope.map.markers = data.markers;
+            $scope.map = data; 
+            console.log($scope.map.markers);
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
+    
+    };
+   
+   
+    refreshMarkerData();
+    
+     /*$('#markers-button').on('click', function(){
+        refreshMarkerData()
+        
+    
+    });*/
+    
     
     gservice.refresh(36.1627, -86.7816);
 
@@ -633,11 +737,80 @@ app.controller('adminUploadController', function($scope, $http){
     };
     
     
-var successMessage = function(){
-    $('#error-log').text('Upload Succesful!')
-    $('#error-log').addClass('success');
-    $('#error-log').fadeOut(1000);
-}
+    
+    var successMessage = function(){
+        $('#error-log').text('Upload Succesful!')
+        $('#error-log').addClass('success');
+        $('#error-log').fadeOut(1000);
+    }
+
+});
+
+
+app.controller('adminEditController', function($scope, $http){
+    //instantiates scope variables
+    $scope.archive = {}; //archive object to be put in db 
+    $scope.archive.title = "";
+    $scope.archive.descrption = "";
+    $scope.archive.metadata = [];
+    $scope.meta = "";
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/pqw4ry/edit/', '');
+         
+    var refreshData = function(){
+        $http.get('../../archive/'+ path)
+        .success(function(data){
+            $scope.archive = data;
+            $scope.archive.metadata = data.metadata;
+            $scope.meta = $scope.archive.metadata.toString();
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+ 
+    };
+    
+    
+    refreshData();
+    
+     $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+  
+     $scope.saveArchive = function(){
+        $scope.archive.metadata = $scope.meta.split(',');
+        $http.put('../../archive/'+ $scope.archive._id, {title: $scope.archive.title, description: $scope.archive.description, metadata: $scope.archive.metadata})
+                .success(function(data){
+                   
+                    console.log(JSON.stringify(data));
+                    window.location.href = 'http://localhost:3000/pqw4ry/';
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+
+     
+     
+     
+     }
+    
+    
+    $scope.removeItem = function(archive) {
+        if (confirm('Are you sure you want to delete this?')) {
+        // if the answer is "Ok".
+            $http.delete('../../archive/delete/'+ archive)
+                .success(function(data){
+                    
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+
+                refreshData();
+            };
+        }
+        
+
 
 });
 
@@ -787,6 +960,7 @@ var youtubeLinkParse  = function(link){
     }
     
     //alter link to replace default action
+    link = link.replace("youtu.be", "youtube.com/embed");
     return link.replace("watch?v=", "embed/");
 }
 

@@ -26,7 +26,7 @@
             <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
         <![endif]-->
         <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="css/admin.css">
+        <link rel="stylesheet" href="../css/admin.css">
         <!--<![endif]-->
     <script type="text/javascript" src="/app.js"></script>
 
@@ -81,7 +81,7 @@
                    <button type="button" id="delete-btn" ng-click="removeItem(archive._id)"><i class="fa fa-trash fa-lg"></i> </button>
                 </span>
                 <span>
-                    <button type="button"><i class="fa fa-pencil fa-lg"></i> </button>
+                    <button type="button" ng-click="edit(archive._id)"><i class="fa fa-pencil fa-lg"></i> </button>
                 </span>
                 
             </aside>
@@ -171,7 +171,7 @@
        </div>
        </div>
       
-    <script src= "lib/admin.js"></script>
+    <script src= "../lib/admin.js"></script>
     <script src="/gservice.js"></script>
 
     

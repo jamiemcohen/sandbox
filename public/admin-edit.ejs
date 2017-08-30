@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html ng-app = "myApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB1KpPTYkE_whSe3MkIcL2u_d_oDfzVRk"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <title>StoryLiner &ndash; Admin  </title>
+   <script src="/bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+    <!--<![endif]-->
+    
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="../../css/admin.css">
+        <!--<![endif]-->
+    <script type="text/javascript" src="/app.js"></script>
+
+
+</head>
+<body ng-controller = "adminEditController">
+   <div >
+           <div class="header">
+            <h2>Edit Artifacts</h2>
+            </div>
+            <div id = "edit">
+                
+                <form   class="pure-form"  id = "edit-form">
+
+
+                       <fieldset class="pure-group">
+                            <input id="media-title"   ng-model ="archive.title" class="pure-input-1"  type="text" >
+                            <input id="media-meta"  ng-model ="meta"  class="pure-input-1"   type="text" >
+                            <textarea id="media-description"  ng-model ="archive.description" class="pure-input-1" type="text"></textarea>
+                        </fieldset>
+                        
+
+                       <fieldset  class="pure-group">
+                            <button type="submit" class="pure-button pure-input-1 danger"  ng-click = "removeItem(archive._id)">Delete</button>
+                            <button type="submit" class="pure-button pure-button-primary pure-input-1"  ng-click = "saveArchive()">Save</button>
+                        </fieldset>   
+
+
+            </form>
+        </div>
+    </div>
+   
+    
+   
+    <script src="/gservice.js"></script>
+
+    
+    
+</body>
+
+</html>

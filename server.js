@@ -24,6 +24,7 @@ var archive = require('./routes/archive.js')(app);
 var marker = require('./routes/marker.js')(app); 
 var map = require('./routes/map.js')(app);  
 var mapDB = require('./models/maps.js');
+var archiveDB = require('./models/archives.js');
 
 var isPath = function(req, res){
            
@@ -93,6 +94,20 @@ app.get('/pqw4ry/marker/:id', function(req, res) {
    					  
 });
 
+app.get('/pqw4ry/edit/:id', function(req, res) {
+	archiveDB.count({_id: req.params.id}, function (err, count){ 
+        if(count>0){
+             res.render('admin-edit');
+        }else{
+            res.render('404');
+        }
+        
+    });
+    
+    
+   					  
+});
+
 
 //set new dynamic edit routes
 
@@ -142,7 +157,7 @@ app.route('/db')
     .get(map.getAll);
 app.route('/db/:id')
     .get(map.getOne)
-    .put(map.addArchive);
+    .put(map.addMarkerArchive);
 app.route('/db/title/:title')
     .get(map.getOneTitle);
 app.route('/db/path/:path')
@@ -155,7 +170,8 @@ app.route('/archive')
     .post(archive.post)
     .get(archive.getAll);
 app.route('/archive/:id')
-    .get(archive.getOne);
+    .get(archive.getOne)
+    .put(archive.editArchive);
 app.route('/archive/delete/:id')
     .delete(archive.deleteOne);
 

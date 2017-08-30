@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html >
     <head>
+        <link rel="stylesheet" href="../css/admin.css">
     </head>
     <body ng-app = "myApp" >
-    <div class= "archive-menu" id= "archive-menu" ng-controller = 'archiveController'>
+    <div class= "archive-menu" id= "archive-menu">
+        
         <button class="pure-button" ng-click = 'refresh()' id="archive-refresh-btn">
                         <i class="material-icons">refresh</i>
         </button>
-            <div class = "pure-menu-horizontal pure-menu-scrollable">
+        <div id = "archive-menu-options" class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+                <li id="myarchive-btn"class="pure-menu-item"><a href="#" class="pure-menu-link">My Archive</a></li>
+                <li  id="sandbox-btn" class="pure-menu-item"><a href="#" class="pure-menu-link">Sandbox</a></li>
+            </ul>
+        </div>
+        
+        <div id = "myarchive-menu" ng-controller = 'archiveController'>
+            <div   class = "pure-menu-horizontal pure-menu-scrollable">
                     <ul class="pure-menu-list" id= "archive-menu-list" ng-repeat= 'archive in myarchive' >
                         <li class="pure-menu-item"> <a href="#" class="pure-menu-link">
                          
@@ -27,6 +37,33 @@
                            
                     </ul>
             </div>
+        </div>
+            <div id = "sandbox-menu" >
+                <div ng-controller = "adminArchiveController">
+                    <div class="header">
+                        <h2>Sandbox Archive</h2>
+                    </div>
+                    <div class="pure-g">
+                         <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ng-repeat = "archive in archives">
+                        <a ng-href="#lightbox">
+                            <img ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}">
+                            <iframe ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" frameborder="0" allowtransparency="true"></iframe>
+                             <div class="overlay">
+                                 <h3>{{archive.title}}</h3>
+                                 <p>{{archive.description}}</p>
+                                 <p id= "metadata" >{{arrayToString(archive.metadata)}}</p>
+
+                            </div>
+                        </a>
+
+                        <aside class="photo-box-caption">
+                           
+                        </aside>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>    
     </body>
 </html>

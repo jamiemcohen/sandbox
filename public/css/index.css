@@ -64,10 +64,10 @@ button:active, button:hover {
 }
 
 .archive-menu{
-   margin-right: 50px;
-    margin-left: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
     background-color: black;
-    height: 100vh;
+    
     display: none;
 
 }
@@ -164,17 +164,38 @@ leaflet-popup-content {
 
 /*-----------CREATE MENU CSS ---------------->*/
 .custom-restricted {
-    height: 160px;
-    width: 300px;
-    border: 1px solid gray;
-    border-radius: 4px;
+    margin-top: 20px;
+    height: 80vh;
+    width: 90%;
+    border: none;
+    
 }
 
-#media-scrollable {
+.added-restricted {
+    margin-top: 20px;
+    height: 20vh;
+    width: 90%;
+    border: none;
+    
+}
+
+
+#media-scrollable-myarchive {
     margin-right: auto;
     margin-left: auto;
     text-align: center;
-    width:300px;
+    width:90%;
+
+    
+
+}
+
+#media-scrollable-sandbox {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    width:90%;
+    display:none;
 
 
 }
@@ -273,4 +294,49 @@ overflow: hidden;
 text-overflow: ellipsis; // This is where the magic happens
 }
 
+
+#archive-menu-options{
+    padding-top: 20px;
+
+
+}
+
+#sandbox-menu{
+
+    display: none;
+
+
+}
+
+#create-form{
+     text-align: center;
+
+}
+
+#archive-panel{
+    display:none;
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    
+
+}
+
+#archive-panel-nav{
+    padding-top: 20px;
+
+
+}
+
+#add-item-btn{
+    width: 80%;
+
+}
+
+
+.danger {
+
+    background:#E56675;
+
+}
 

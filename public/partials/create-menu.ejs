@@ -1,45 +1,102 @@
 <!DOCTYPE html>
 <html ng-app = "myApp">
-    <head></head>
-    <body>
-    <div class= "create-menu" id= "create-menu" ng-controller = "markerController">
-       <h3>Create a New Marker</h3>
-     
-        <form class="pure-form pure-form-aligned">
-    <fieldset>
-            <div class="pure-control-group">
-                <label for="title">Title</label>
-                <input id="title" type="text"  ng-model ="marker.title" placeholder="Title"  required>
+    <head>
+    </head>
+    <body ng-controller = "markerController">
+    <div class= "create-menu" id= "create-menu" >
+       
+     <div id ="create-form">
+        <form id= "create-form-content" class="pure-form">
+            <h3>Create a New Marker</h3>
+            <fieldset class="pure-group">
+                <p class="pure-input-1"> Double Click on Map to place marker</p>
+                <input id="title" type="text"   class="pure-input-1"  ng-model ="marker.title" placeholder="Title">
+                
+                <textarea id ="description"   class="pure-input-1"  ng-model ="marker.description" placeholder="Tell us a story..." ></textarea>
+                <input id="latitude" type="text"  class="pure-input-1"   ng-model ="marker.latitude" placeholder="Latitude">
+               
+                <input id="longitude" type="text"   class="pure-input-1"  ng-model ="marker.longitude" placeholder="Longitude">
+                <button  id = "addMedia-btn" class="pure-button pure-input-1" >  <i class="fa fa-plus" ></i>  Add Media  </button>
+            </fieldset >
+         
+
+            <div class="pure-menu pure-menu-scrollable added-restricted" >
+                <p>Added Media:</p>
+                <ul class="pure-menu-list" ng-repeat =  "link in addedLinks">
+                         <li class="pure-menu-item">   <iframe  ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}"   frameborder="0" allowtransparency="true" width="100" height="100" ></iframe>
+
+                            <img  ng-if="!link.includes('spotify') && !link.includes('youtube')" ng-src = "{{link}}"  width="100" height="100">
+                            <button class = "pure-button" href = "" ng-click = "removeMedia(link)" ><i class="fa fa-trash"></i> </button>
+                         </li> 
+                </ul>
+
             </div>
 
-            <div class="pure-control-group">
-                <label for="description">Description</label>
-                <textarea id ="description"  ng-model ="marker.description" placeholder="Tell us a story..." ></textarea>
-            </div>
-            <div class="pure-control-group">
-                <label for="latitude">Latitude</label>
-                <input id="latitude" type="text"  ng-model ="marker.latitude" placeholder="Latitude">
-            </div>    
+                  
+               
+          
+              
+            <fieldset class="pure-group">
+                <button type="submit" class="pure-button pure-button-primary pure-input-1"  ng-checked= "check" ng-click = "saveMarker()">Save</button>
+            </fieldset>
 
-
-            <div class="pure-control-group">
-                <label for="longitude">Longitude</label>
-                <input id="longitude" type="text"    ng-model ="marker.longitude" placeholder="Longitude">
-            </div>
+                </form>
+        </div>
+    
+    <div id="archive-panel">
+        <div  id = "archive-panel-nav" class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item" id = "addMedia-btn-back" ><a href="#" class="pure-menu-link"> <i class="fa fa-chevron-left" ></i> Back</a></li>
+                <li class="pure-menu-item" id = "addMedia-btn-myarchive" ng-click= refresh()><a href="#" class="pure-menu-link">  <i class="fa fa-folder" ></i> My Archive </a></li>
+                <li class="pure-menu-item " id = "addMedia-btn-sandbox" ng-click= refresh() > <a href="#" class="pure-menu-link">  <i class="fa fa-th"></i> Sandbox</a></li>
+            </ul>
+        </div>
+     <div id="media-scrollable-myarchive">
+                    <div class="pure-menu pure-menu-scrollable custom-restricted">
+                        <a href="#" class="pure-menu-link pure-menu-heading">Select Media</a>
+                        <ul class="pure-menu-list" ng-repeat= "archive in map.myarchive">
+                            <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link"> 
+                              <div>
+                               
+                                <p>{{archive.title}}</p>
+                                     <iframe  ng-if="archive.link.includes('spotify') || archive.link.includes('youtube')" ng-src="{{trustSrc(archive.link)}}" width="200" height="200"   frameborder="0" allowtransparency="true"></iframe>
+                            
+                            <img  ng-if="!archive.link.includes('spotify') && !archive.link.includes('youtube')" ng-src = "{{archive.link}}" width="200" height="200" >
+                                    
+                                  
+                            </div>
+                            <div>     
+                                    
+                                    <button class ='pure-button' id="add-item-btn" ng-click= "addMedia(archive.link)" > Add </button>
+                               
+                               
+                            </div>  
+                            </a> 
+                            </li>
+                            
+                        </ul>
+                            
+                    </div>
+                </div>
             
-                <div id="media-scrollable">
+            
+            <div id="media-scrollable-sandbox">
+               
                     <div class="pure-menu pure-menu-scrollable custom-restricted">
                         <a href="#" class="pure-menu-link pure-menu-heading">Select Media</a>
                         <ul class="pure-menu-list" ng-repeat= "archive in archives">
                             <li class="pure-menu-item">
                                 <a href="#" class="pure-menu-link"> 
+                                <div>
                                 <p>{{archive.title}}</p>
                                      <iframe  ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" width="200" height="200"   frameborder="0" allowtransparency="true"></iframe>
                             
                             <img  ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}" width="200" height="200" >
-                                <label  class="pure-checkbox">
-                                    <input  ng-click= "addMedia($event, archive.url)" type="checkbox"> 
-                                </label>
+                                </div>
+                                <div>
+                                     <button class ='pure-button' id="add-item-btn" ng-click= "addMedia(archive.url)" > Add </button>
+                                </div>
                                 </a>
                                 
                             </li>
@@ -48,15 +105,7 @@
                             
                     </div>
                 </div>
-              
-            <div class="pure-controls">
-                <button type="submit" class="pure-button pure-button-primary" ng-checked= "check" ng-click = "saveMarker()">Save</button>
             </div>
-            
-            
-     
-    </fieldset>
-</form>
-    </div>    
+        </div> 
     </body>
 </html>

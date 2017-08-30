@@ -341,9 +341,18 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     width: 100%;
     text-align: center;
 
-
-
 }
+
+#edit{
+    width: 100%;
+  text-align: center;
+}
+
+#edit-form{
+     width: 40%;
+     display: inline-block;
+}
+
 
 iframe{
     width: 100%;
@@ -425,3 +434,24 @@ iframe{
 
 
 }
+
+
+#sandbox-btn {
+    background: #333333;
+
+}
+
+#myarchive-btn {
+    background: white;
+
+}
+
+#create-form-content{
+    display: inline-block;
+    width: 60%;
+
+
+
+
+}
+

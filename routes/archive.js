@@ -58,6 +58,28 @@ module.exports = function(){
             });
 
         
+        },
+        
+         editArchive: function(req, res){
+
+            // use our map model to find the map we want
+            Archive.findById(req.params.id, function(err, archive) {
+
+                if (err) res.send(err);
+
+                archive.title = req.body.title;  // update the archive info
+                archive.description = req.body.description;  // update the archive info
+                archive.metadata = req.body.metadata;  // update the archive info
+
+                // save the archive
+                archive.save(function(err) {
+                    if (err) res.send(err);
+
+                    res.json(archive.myarchive);
+                });
+
+            });
+            
         }
     }
         

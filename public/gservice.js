@@ -29,19 +29,27 @@ angular.module('gservice', [])
             selectedLat = latitude;
             selectedLong = longitude;
         
-            
-            //perform an ajax call to get all the current markers
-            $http.get('/marker').success(function(response){
+            var path = window.location.href;
+            path = path.replace('http://localhost:3000/edit/', '');
+            console.log(path);
+            var id = "";
+            $http.get('../db/path/'+ path)
+                .success(function(data){
+                    console.log(JSON.stringify(data));
+                    id = data._id;
+                    var markers = data.markers;
+                    locations = convertToMapPoints(data.markers);
 
-                // Convert the results into Google Map Format
-                locations = convertToMapPoints(response);
-
-                // Then initialize the map.
-                initialize(latitude, longitude);
-            }).error(function(data) {
-            console.log('Error: ' + data);
+                    // Then initialize the map.
+                    initialize(latitude, longitude);
+                    console.log(markers);
+                
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
             
-            });
+      
         
         
         };
@@ -54,7 +62,6 @@ angular.module('gservice', [])
         var convertToMapPoints = function(response){
         
             var locations = [];
-            
             //loop through entries in response
             // Loop through all of the JSON entries provided in the response
             for(var i= 0; i < response.length; i++) {
@@ -144,7 +151,33 @@ angular.module('gservice', [])
                 currentSelectedMarker = n;
                 n.message.open(map, marker);
             });
+            
+            
         });
+            
+        var currentMarker;
+        google.maps.event.addListener(map, 'dblclick', function(e){
+                 placeMarker(e.latLng);
+                // When double-clicked, add the info to lat and long fields
+                    $('#latitude').val( e.latLng.lat());
+                    $('#longitude').val( e.latLng.lng());
+            
+                
+        });
+            
+            
+         function placeMarker(location) {
+
+             if (currentMarker == null)
+             {
+               currentMarker = new google.maps.Marker({
+                  position: location,
+                  map: map
+                }); 
+             } else {  
+                currentMarker.setPosition(location); 
+             } 
+         };
 
         // Set initial location as a bouncing red marker
         /*var initialLocation = new google.maps.LatLng(latitude, longitude);

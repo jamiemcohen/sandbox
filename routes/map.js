@@ -58,25 +58,26 @@ module.exports = function(){
             });     
         },
         
-         addArchive: function(req, res){
+         addMarkerArchive: function(req, res){
 
-        // use our bear model to find the bear we want
-        Map.findById(req.params.id, function(err, map) {
+            // use our map model to find the map we want
+            Map.findById(req.params.id, function(err, map) {
 
-            if (err) res.send(err);
-
-            map.myarchive = req.body.myarchive;  // update the bears info
-
-            // save the bear
-            map.save(function(err) {
                 if (err) res.send(err);
 
-                res.json(map.myarchive);
-            });
+                map.myarchive = req.body.myarchive;  // update the archive info
+                map.markers = req.body.markers;
+                // save the archive
+                map.save(function(err) {
+                    if (err) res.send(err);
 
-        });
+                    res.json(map);
+                });
+
+            });
             
         },
+        
         
          deleteOne: function(req, res, next){
             Map.remove({
