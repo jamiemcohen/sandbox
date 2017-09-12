@@ -6,9 +6,7 @@
     <body ng-app = "myApp" >
     <div class= "archive-menu" id= "archive-menu">
         
-        <button class="pure-button" ng-click = 'refresh()' id="archive-refresh-btn">
-                        <i class="material-icons">refresh</i>
-        </button>
+      
         <div id = "archive-menu-options" class="pure-menu pure-menu-horizontal">
             <ul class="pure-menu-list">
                 <li id="myarchive-btn"class="pure-menu-item"><a href="#" class="pure-menu-link">My Archive</a></li>
@@ -45,7 +43,7 @@
                     </div>
                     <div class="pure-g">
                          <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ng-repeat = "archive in archives">
-                        <a ng-href="#lightbox">
+                        <a >
                             <img ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}">
                             <iframe ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" frameborder="0" allowtransparency="true"></iframe>
                              <div class="overlay">

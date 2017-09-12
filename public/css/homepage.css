@@ -335,3 +335,62 @@ a.pure-button-primary {
     }
 }
 
+
+#hider{
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color:gray;
+       opacity:0.9;
+}
+
+#popup_box  {
+
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10%;
+        width:50%;
+        z-index:100; 
+        display: inline-block;
+        background: white
+
+}
+
+#buttonClose{
+    float:right;
+    margin-right: 1em;
+
+
+}
+#buttonClose:hover{
+    color: black;
+
+
+}
+
+
+#modalForm{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;   
+    padding-top: 5em;
+    padding-bottom: 5em;
+
+}
+
+#forgotPasswordForm{
+    display: none;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;   
+    padding-top: 5em;
+    padding-bottom: 5em;
+
+
+}

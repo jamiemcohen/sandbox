@@ -2,7 +2,7 @@
   font-family: "Helvetica", "Arial", sans-serif;
 }
 .pure-g [class *= "pure-u"] {
-  font-family: "Roboto"; san-serif;;
+  font-family: "Roboto"; san-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 }
 #map {
     width: 100%;
-    height: 800px;
+    height: 60vh;
     display: inline;
     float: left;
 }
@@ -24,7 +24,7 @@ body {
 
 #menu-top{
     width: 100%;
-    height: 50vh;
+    height: 40vh;
     background-color: #F5A623;
     display: inline;
     float: left;
@@ -339,4 +339,82 @@ text-overflow: ellipsis; // This is where the magic happens
     background:#E56675;
 
 }
+
+
+#marker_hider{
+    
+        display:none;
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color:gray;
+        opacity: 1;
+        
+       
+}
+
+#marker_popup_box  {
+        display:none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5%;
+        width:80%;
+        z-index:100; 
+        display: inline-block;
+        background: black;
+       
+
+}
+
+#marker_buttonClose{
+    float:right;
+    margin-right: 1em;
+    color: white;
+   
+
+
+}
+#marker_buttonClose:hover{
+    color: gray;
+
+
+}
+
+
+#photo-box-size{
+    height:200px;
+
+}
+
+#photo-box-size:hover{
+    border: 2px solid white;
+
+}
+
+#modal-window{
+    color:white;
+
+}
+
+#modal-photo-size{
+    padding-top: 5%;
+    width: 30%;
+
+
+}
+
+#modal-meda-size{
+    padding-top: 5%;
+    height: 40%;
+    width: 30%;
+
+
+}
+
 

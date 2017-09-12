@@ -61,7 +61,7 @@
             <h2>Manage Archive</h2>
         </div>
         <div class="pure-g">
-             <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ng-repeat = "archive in archives">
+            <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ng-repeat = "archive in archives">
             <a ng-href="#lightbox">
                 <img ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}">
                 <iframe ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" frameborder="0" allowtransparency="true"></iframe>

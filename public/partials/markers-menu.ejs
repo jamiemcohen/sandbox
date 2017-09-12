@@ -1,34 +1,87 @@
 <!DOCTYPE html>
 <html ng-app = "myApp">
     <head>
-        
+        <link rel="stylesheet" type="text/css" href="../css/gallery.css">
     </head>
     <body >
-        <div class= "marker-menu"  id= "marker-menu" ng-controller = "markersCtrl">
+        <div ng-controller = "markersCtrl">
+        <div id="marker_hider">
+                            <div id="marker_popup_box">
+                                <a id="marker_buttonClose"><i class="fa fa-times"></i></a>
+                                <div id = "modal-window">
+                                    <div ng-repeat =  "link in modal.links">
+
+                                        <img id="modal-photo-size" ng-if="!link.includes('spotify') && !link.includes('youtube')"ng-src = "{{link}}">
+                                        <iframe id = "modal-meda-size" ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+
+
+
+                                    </div>
+                                    <h2>{{modal.title}}</h2>
+                                    <p>{{modal.description}}</p>
+                                </div>
+                        
+                                
+                                
+                            </div>    
+                           </div>
+        <div class= "marker-menu"  id= "marker-menu" >
             <div class = "pure-menu-horizontal pure-menu-scrollable">
-                       <h3>Markers</h3>
                     
                         <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'marker in map.markers' >
-                        <li   id="marker-li" class="pure-menu-item" id= "marker-item"> <a href="#" class="pure-menu-link">
-                            <div id="marker-desc" >
-                                <h3>{{marker.title}}</h3> 
-                            
-                                <p>{{marker.description}}</p>
+                        <li   id="marker-li" class="pure-menu-item" id= "marker-item">
+                        <div class= "pure-g">
+                            <div class="photo-box pure-u-1" id="photo-box-size">  
+                            <a >
+                                <img  ng-if="!marker.media[0].includes('spotify') && !marker.media[0].includes('youtube')"ng-src = "{{marker.media[0]}}">
+                                <iframe ng-if="marker.media[0].includes('spotify') || marker.media[0].includes('youtube')" ng-src="{{trustSrc(marker.media[0])}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+                                 
+                               
+                            </a>
+
+                            <aside class="photo-box-caption">
+                                    <h3>{{marker.title}}</h3>
+                                     <p>{{marker.description}}</p>
+                                     <p id= "metadata" >{{marker.latitude}}, {{marker.longitude}} </p>
+                                <span>
+                                    <button ng-if = "!$first" type="button" ng-click="swapLeft(map.markers[$index], marker)" id="openWindow"><i class="fa fa-arrow-left" ></i> </button>
+                                </span>
+                                <span>
+                                    <button  ng-if = "!$last" type="button" ng-click="swapRight(map.markers[$index+1], marker)" id="openWindow"><i class="fa fa-arrow-right" ></i> </button>
+                                </span>
+                                 <span>
+                                    <button type="button" ng-click = "viewMarker(marker)"><i class="fa fa-arrows-alt fa-lg"></i>
+                                </span>
                                 
-                                <p>{{marker.latitude}}</p>
-                                <p>{{marker.longitude}}</p>
-                                <p>{{marker.media}}</p>
-                            </div>   
+                                
+                                <span>
+                                    <button type="button" ng-click="openWindow(marker.latitude, marker.longitude )" id="openWindow"><i class="fa fa-map-marker" ></i> </button>
+                                </span>
+                                 <span>
+                                   <button type="button" id="delete-btn" ng-click="removeMarker(marker._id)"><i class="fa fa-trash fa-lg"></i> </button>
+                                </span>
+                                <span>
+                                    <button type="button" ng-click="edit(archive._id)"><i class="fa fa-pencil fa-lg"></i> </button>
+                                </span>
+
+                            </aside>
+                     </div>
+                                
+                                
                              
                             
                             
-                        </a></li>
+                          </div>
+                        </li>
+                            
+                        
         
                       </ul>
             </div>
+            
           <button onclick = toggleMarkersMenu() class ="pure-button" id="close-marker-btn">Close</button> 
             
     </div> 
-       
+       </div>
     </body>
 </html>

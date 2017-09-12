@@ -36,7 +36,7 @@ module.exports = function(){
         
         getOne: function(req, res){
             Map.findById(req.params.id, function(err, map){
-                if(err) res.send(err);
+                if(err) return res.send(err);
                 //If no errors, send it back to the client
                 res.json(map);
             });     
@@ -52,7 +52,7 @@ module.exports = function(){
         
          getOnePath: function(req, res){
             Map.findOne({path: req.params.path}, function(err, map){
-                if(err) res.send(err);
+                if(err) return res.send(err);
                 //If no errors, send it back to the client
                 res.json(map);
             });     

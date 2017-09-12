@@ -18,6 +18,7 @@ $('#markers-button').click(function() {
     if (markerOpen == false){
         openMarkersMenu();
         $('#map').css('width', '100%');
+        $('#map').css('height', '60vh');
     } else{
         closeMarkersMenu();
         
@@ -30,9 +31,11 @@ $('#create-button').click(function() {
     if (createOpen == false){
         openCreateMenu();
         $('#map').css('width', '60%');
+        $('#map').css('height', '100%');
     }else{
         closeCreateMenu();
         $('#map').css('width', '100%');
+        $('#map').css('height', '60vh');
         
         openMarkersMenu();
     }
@@ -56,6 +59,7 @@ $('#upload-button').click(function() {
     if (uploadOpen == false){
         openUploadMenu();
         $('#map').css('width', '100%');
+        $('#map').css('height', '60vh');
     }else{
         closeUploadMenu();
         openMarkersMenu();
@@ -99,7 +103,7 @@ function hideAllMenusExcept(menu){
 function openMarkersMenu(){
     hideAllMenusExcept("markers"); 
     $('#menu-top').show();
-    $('#menu-top').css('height', '50vh');
+    $('#menu-top').css('height', '40vh');
     $('#map').show();
     $(".marker-menu").show();
         $("#markers-button").css("background-color", "#F5A623");
@@ -189,8 +193,8 @@ function openSettingsMenu(){
    $('#map').show();
     hideAllMenusExcept("settings"); 
     $(".settings-menu").show();
-        $("#settings-button").css("background-color", "#F5A623");
-        settingsOpen = true;
+     $("#settings-button").css("background-color", "#F5A623");
+    settingsOpen = true;
 
 }
 

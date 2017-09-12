@@ -11,14 +11,60 @@ angular.module('gservice', [])
         var locations = [];
     
     
+        //markers created
+        var markers = [];
+        
+        var locations = [];
+        //GLOBAL MAP = 
+         var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: 36.1627, lng: -86.7816}
+            }); 
+    
         //selected location to start map at 
         var selectedLat = "36.1627";
         var selectedLong = "-86.7816";
-    
         
-    
+        
         //FUNCTIONS
         //___________________________________________________________________________
+        //pops up the corresponding marker window when given the lat and long coordinate
+        googleMapService.popUpMarker = function(latitude, longitude){
+            //find marker with those coordinates
+            for(var i=0; i< markers.length; i++){
+               var current = markers[i];
+                
+               // console.log('marker position :' +current.getPosition().lat() + ", " + current.getPosition().lng() );
+                if(current.getPosition().lat() == latitude && current.getPosition().lng() == longitude){
+                    //console.log('a match');
+                    //close all locations
+                   
+                    for(var j=0; j< locations.length; j++){
+                       var currentLoc = locations[j];
+                        if(currentLoc.latlon.lat() == latitude && currentLoc.latlon.lng()== longitude){
+                            //console.log('found a targetMatch');
+                            closeWindows();
+                            currentLoc.message.open(map, current);
+                            map.panTo(currentLoc.latlon);
+
+                        }
+
+                    }
+                    
+                
+                }
+            
+            }
+            
+             
+            
+            
+            
+            // open that marker
+            
+            
+            
+        };
         //refreshes map with new data. function will accept latitude and longitude parameters
         googleMapService.refresh = function(latitude, longitude){
             
@@ -31,18 +77,18 @@ angular.module('gservice', [])
         
             var path = window.location.href;
             path = path.replace('http://localhost:3000/edit/', '');
-            console.log(path);
+            //console.log(path);
             var id = "";
-            $http.get('../db/path/'+ path)
+            $http.get('/db/path/'+ path)
                 .success(function(data){
-                    console.log(JSON.stringify(data));
+                    //console.log(JSON.stringify(data));
                     id = data._id;
                     var markers = data.markers;
                     locations = convertToMapPoints(data.markers);
 
                     // Then initialize the map.
                     initialize(latitude, longitude);
-                    console.log(markers);
+                    //console.log(markers);
                 
                 })
                 .error(function(data) {
@@ -58,10 +104,22 @@ angular.module('gservice', [])
     
         //PRIVATE INNER FUNCTIONS
         //___________________________________________________________________________
+        //Close all open markers windows 
+        var closeWindows = function(){
+            for(var i = 0; i < locations.length; i++){
+                var current = locations[i];
+                current.message.close();    
+            
+            
+            }
+        
+        
+        
+        };
         //Convert a JSON of points into map points
         var convertToMapPoints = function(response){
         
-            var locations = [];
+            locations = [];
             //loop through entries in response
             // Loop through all of the JSON entries provided in the response
             for(var i= 0; i < response.length; i++) {
@@ -82,7 +140,7 @@ angular.module('gservice', [])
                        // alert(marker.title + ' : ' + current + ' is a ' + typeof(current));
                         if(current != undefined || current != null){
                             if(current.includes('spotify')|| current.includes('youtube')){
-                                mediaString += '<iframe src="'+ current +'" class= "media-thumbnail" frameborder="0" allowtransparency="true"></iframe><br>';
+                                mediaString += '<iframe src="'+ current +'" class= "media-thumbnail" frameborder="0" allowtransparency="true" allowFullScreen="allowFullScreen"></iframe><br>';
 
                             }
 
@@ -126,14 +184,14 @@ angular.module('gservice', [])
         var myLatLng = {lat: selectedLat, lng: selectedLong};
 
         // If map has not been created already...
-        if (!map){
+       /* if (!map){
 
             // Create a new map and place in the index.html page
-            var map = new google.maps.Map(document.getElementById('map'), {
+                var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: myLatLng
             });
-        }
+        }*/
 
         // Loop through each location in the array and place a marker
         locations.forEach(function(n, i){
@@ -143,7 +201,8 @@ angular.module('gservice', [])
                 title: "Big Map",
                 icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
             });
-
+            markers.push(marker);
+            //console.log(marker);
             // For each marker created, add a listener that checks for clicks
             google.maps.event.addListener(marker, 'click', function(e){
 

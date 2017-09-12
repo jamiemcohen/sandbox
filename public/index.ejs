@@ -7,6 +7,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB1KpPTYkE_whSe3MkIcL2u_d_oDfzVRk"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <title>StoryLiner &ndash; a spatial-based story telling tool &ndash; by SLaM @ Vanderbilt University</title>
@@ -32,26 +33,58 @@
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body ng-controller = "createMapCtrl">
+    <div id="hider">
+    <div id="popup_box">
+        <a id="buttonClose"><i class="fa fa-times"></i></a>
+        <div id = 'modalForm'>
+        <form class="pure-form">
+            <h3>Login to edit your map</h3>
+            <p id = "error-login"></p>
+            <fieldset class="pure-group">
+                <input type="text" ng-model = "login_url"class="pure-input-1-2" placeholder="Map Path: StoryLiner.org/maps/YOUR URL" required>
+                <input type="password"  ng-model = "login_password" class="pure-input-1-2" placeholder="Password"  required>
+                <a href= '#' id = "forgot-password" >forgot password</a>
+            </fieldset>
 
+            <button type="submit" ng-click = 'login()'class="pure-button pure-input-1-2 pure-button-primary">Sign in</button>
+        </form>
+        </div>
+        <div id = "forgotPasswordForm">
+            <form class="pure-form">
+            <h3>Confirm your email</h3>
+            <p id = "error-login-forgot"></p>
+            <fieldset class="pure-group">
+                <input type="email" ng-model = "login_email"class="pure-input-1-2" placeholder="Email" required>
+                
+            </fieldset>
+
+            <button type="submit" ng-click = 'sendEmail()'class="pure-button pure-input-1-2 pure-button-primary">Send Password</button>
+        </form>
+        </div>
+    </div>    
+   </div>
+      
+      
+   <div id = "content-page">
     <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
             <a class="pure-menu-heading" href="">STORYLINER</a>
 
             <ul class="pure-menu-list">
-                
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link" id= "create-map-link"><i class="material-icons">add_circle</i></a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link" id= "create-map-link"><i class="material-icons">edit_location</i></a></li>
+                  
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link" id= "create-map-link">  Create Map  <i class="fa fa-plus-circle"></i></a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link" id= "login-link"> Login  <i class="fa fa-location-arrow"></i> </a></li>
             </ul>
         </div>
     </div>
-
+<div>
     <div class="splash-container">
         <div class="splash">
             <h1 class="splash-head">Map Your Story</h1>
         </div>
     </div >
     
-   
+  
     <div class="content-wrapper">
         <div class="ribbon l-box-lrg pure-g">
             <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
@@ -74,7 +107,7 @@
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
 
                     <h3 class="content-subhead">
-                        <i class="material-icons">music_note</i>
+                        <i class="fa fa-spotify"></i>
                         Add music from Spotify
                     </h3>
                     <p>
@@ -83,7 +116,7 @@
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
-                       <i class="material-icons">videocam</i>
+                       <i class="fa fa-youtube-play"></i>
                         Link videos through youtube
                     </h3>
                     <p>
@@ -92,7 +125,7 @@
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
-                        <i class="material-icons">add_a_photo</i>
+                        <i class="fa fa-camera"></i>
                         Add images or take your own
                     </h3>
                     <p>
@@ -101,7 +134,7 @@
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
-                        <i class="material-icons">share</i>
+                        <i class="fa fa-share"></i>
                         Share with everyone
                     </h3>
                     <p>
@@ -171,6 +204,7 @@
             Brought to you by the <a id = "slam-link" href= "https://peabody.vanderbilt.edu/departments/tl/teaching_and_learning_research/space_learning_mobility/about-home.php" >SLaM Lab</a> at Vanderbilt University's Peabody College of Education
         </div>
 
+    </div>
     </div>
 
 <script src= "lib/index.js"></script>
