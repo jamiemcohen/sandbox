@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+    <head>
+        
+        <link rel="stylesheet" type="text/css" href="/css/index.css">
+        <link rel="stylesheet" type="text/css" href="/css/gallery.css">
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">    
+        <link rel="stylesheet" type="text/css" href="/css/index.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+        <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB1KpPTYkE_whSe3MkIcL2u_d_oDfzVRk"></script>
+        <script src="/bower_components/angular-filepicker/dist/angular_filepicker.js"></script>
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+
+        <script type= "text/javascript" src="/app.js"></script> 
+
+    </head>
+    <body >
+        <div ng-controller = "viewCtrl">
+        <div id="view-menu-top">
+        
+        
+        <div id="marker_hider">
+                            <div id="marker_popup_box">
+                                <a id="marker_buttonClose"><i class="fa fa-times"></i></a>
+                                <div id = "modal-window">
+                                     <h2>{{modal.title}}</h2>
+                                    <p>{{modal.description}}</p>
+                                    <div ng-repeat =  "link in modal.links">
+                                            
+                                        <img id="modal-photo-size" ng-if="!link.includes('spotify') && !link.includes('youtube')"ng-src = "{{link}}">
+                                        <iframe id = "modal-media-size" ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+
+
+
+                                    </div>
+                                   
+                                </div>
+                        
+                                
+                                
+                            </div>    
+        </div>
+        <div class= "marker-menu"  id= "marker-menu" >
+            <div class = "pure-menu-horizontal pure-menu-scrollable">
+                    
+                        <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= "marker in map.markers | orderBy: '+order'" >
+                        <li   id="marker-li" class="pure-menu-item" id= "marker-item">
+                        <div class= "pure-g">
+                            <div class="photo-box pure-u-1" id="photo-box-size">  
+                            <a >
+                                <img  ng-if="!marker.media[0].includes('spotify') && !marker.media[0].includes('youtube')"ng-src = "{{marker.media[0]}}">
+                                <iframe ng-if="marker.media[0].includes('spotify') || marker.media[0].includes('youtube')" ng-src="{{trustSrc(marker.media[0])}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+                                 
+                               
+                            </a>
+
+                            <aside class="photo-box-caption">
+                                    <h3>{{marker.title}}</h3>
+                                     <p>{{marker.description}}</p>
+                                     <p id= "metadata" >{{marker.latitude}}, {{marker.longitude}} </p>
+                              
+                                <span>
+                                    <button type="button" ng-click = "viewMarker(marker)"><i class="fa fa-arrows-alt fa-lg"></i>
+                                </span>
+                                
+                                
+                                <span>
+                                    <button type="button" ng-click="openWindow(marker.latitude, marker.longitude )" id="openWindow"><i class="fa fa-map-marker" ></i> </button>
+                                </span>
+                                
+                            </aside>
+                     </div>
+                                
+                                
+                             
+                            
+                            
+                          </div>
+                        </li>
+                            
+                        
+        
+                      </ul>
+            </div>
+            
+          <button onclick = toggleMarkersMenu() class ="pure-button" id="close-marker-btn">Close</button> 
+            
+        </div> 
+    </div>
+    
+           
+            
+    
+    <div id="map"></div>
+    </div>  
+    <script src="../lib/MenuController.js"></script>  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <script src="/lib/index.js"></script>
+    <script src="/gservice.js"></script>
+    </body>
+</html>

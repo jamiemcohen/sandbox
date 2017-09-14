@@ -353,7 +353,7 @@ text-overflow: ellipsis; // This is where the magic happens
         z- index must be lower than pop up box
        */
         z-index: 99;
-       background-color:gray;
+       background-color: #E4E4E4;
         opacity: 1;
         
        
@@ -367,7 +367,7 @@ text-overflow: ellipsis; // This is where the magic happens
         width:80%;
         z-index:100; 
         display: inline-block;
-        background: black;
+        background: transparent;
        
 
 }
@@ -375,13 +375,13 @@ text-overflow: ellipsis; // This is where the magic happens
 #marker_buttonClose{
     float:right;
     margin-right: 1em;
-    color: white;
+    color: gray;
    
 
 
 }
 #marker_buttonClose:hover{
-    color: gray;
+    color: black;
 
 
 }
@@ -398,23 +398,194 @@ text-overflow: ellipsis; // This is where the magic happens
 }
 
 #modal-window{
-    color:white;
+    color:black;
+
+}
+
+
+
+#edit_hider{
+    
+        display:none;
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color:#E4E4E4;
+        opacity: 1;
+        
+       
+}
+
+#edit_popup_box  {
+        display:none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5%;
+        width:80%;
+        z-index:100; 
+        display: inline-block;
+        background: white;
+       
+
+}
+
+#edit_buttonClose{
+    float:right;
+    margin-right: 1em;
+    color: gray;
+   
+
+
+}
+#edit_buttonClose:hover{
+    color: black;
+
+
+}
+
+#edit-media-size{
+    padding-top: 5%;
+    height:200px;
+    width: 200px;
+
+
+}
+
+
+#sandbox_hider{
+    
+        display:none;
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color: #E4E4E4;
+        opacity: 1;
+        
+       
+}
+
+#sandbox_popup_box  {
+        display:none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5%;
+        width:80%;
+        z-index:100; 
+        display: inline-block;
+        background: transparent;
+       
+
+}
+
+#sandbox_buttonClose{
+    float:right;
+    margin-right: 1em;
+    color: gray;
+   
+
+
+}
+#sandbox_buttonClose:hover{
+    color: black;
+
+
+}
+
+#photo-box-size:hover{
+    border: 2px solid white;
+
+}
+
+#modal-window{
+    color:black;
 
 }
 
 #modal-photo-size{
     padding-top: 5%;
-    width: 30%;
+    width: 100%;
 
 
 }
-
-#modal-meda-size{
+#modal-media-size{
     padding-top: 5%;
-    height: 40%;
-    width: 30%;
+    height:100vh;
+    width: 100%;
+   
+
+}
+
+
+#myarchive_hider{
+    
+        display:none;
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color: #E4E4E4;
+        opacity: 1;
+        
+       
+}
+#myarchive_popup_box  {
+        display:none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5%;
+        width:80%;
+        z-index:100; 
+        display: inline-block;
+        background: transparent;
+       
+
+}
+
+#myarchive_buttonClose{
+    float:right;
+    margin-right: 1em;
+    color: gray;
+   
 
 
 }
+#myarchive_buttonClose:hover{
+    color: black;
+
+
+}
+
+#view-menu-top{
+    width: 100%;
+    height: 30vh;
+    background-color: #F5A623;
+    display: inline;
+    float: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+
+
+
+
 
 

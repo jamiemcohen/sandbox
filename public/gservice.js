@@ -76,7 +76,11 @@ angular.module('gservice', [])
             selectedLong = longitude;
         
             var path = window.location.href;
-            path = path.replace('http://localhost:3000/edit/', '');
+            if(path.includes('edit')){
+                path = path.replace('http://localhost:3000/edit/', '');
+            }else if(path.includes('maps')){
+                 path = path.replace('http://localhost:3000/maps/', '');
+            }
             //console.log(path);
             var id = "";
             $http.get('/db/path/'+ path)
@@ -124,8 +128,10 @@ angular.module('gservice', [])
             // Loop through all of the JSON entries provided in the response
             for(var i= 0; i < response.length; i++) {
                 var marker = response[i];
-          
-            
+                if (typeof marker.description === "undefined") {
+                    marker.description = "";
+                }
+                
                 var  contentString =
                         '<p><b> ' + marker.title + '</b>' +
                         '<br>' + marker.description +

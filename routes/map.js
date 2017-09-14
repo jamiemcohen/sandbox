@@ -58,7 +58,7 @@ module.exports = function(){
             });     
         },
         
-         addMarkerArchive: function(req, res){
+         updateMap: function(req, res){
 
             // use our map model to find the map we want
             Map.findById(req.params.id, function(err, map) {

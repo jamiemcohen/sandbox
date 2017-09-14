@@ -2,31 +2,72 @@
 <html >
     <head>
         <link rel="stylesheet" href="../css/admin.css">
+        <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.min.css">
     </head>
-    <body ng-app = "myApp" >
-    <div class= "archive-menu" id= "archive-menu">
-        
+    <body ng-app = "myApp"  ng-controller = 'archiveController' >
+        <div id="sandbox_hider">
+            <div id="sandbox_popup_box">
+                <a id="sandbox_buttonClose"><i class="fa fa-times"></i></a>
+                    <div id = "modal-window">
+                        <h2>{{sandbox.title}}</h2>
+                        <p>{{sandbox.description}}</p>
+                        <p>{{arrayToString(sandbox.metadata)}}</p>
+                        
+                            <img id="modal-photo-size" ng-if="!sandbox.url.includes('spotify') && !sandbox.url.includes('youtube')"ng-src = "{{sandbox.url}}">
+                            <iframe id = "modal-meda-size" ng-if="sandbox.url.includes('spotify') || sandbox.url.includes('youtube')" ng-src="{{trustSrc(sandbox.url)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+
+
+
+                                 
+                                   
+                    </div>
+                        
+                                
+                                
+            </div>    
+        </div>
+        <div id="myarchive_hider">
+            <div id="myarchive_popup_box">
+                <a id="myarchive_buttonClose"><i class="fa fa-times"></i></a>
+                    <div id = "modal-window">
+                        <h2>{{modalArchive.title}}</h2>
+                        
+                            <img id="modal-photo-size" ng-if="!modalArchive.link.includes('spotify') && !modalArchive.link.includes('youtube')"ng-src = "{{modalArchive.link}}">
+                            <iframe id = "modal-meda-size" ng-if="modalArchive.link.includes('spotify') || modalArchive.link.includes('youtube')" ng-src="{{trustSrc(modalArchive.link)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+
+
+
+                                 
+                                   
+                    </div>
+                        
+                                
+                                
+            </div>    
+        </div>
+        <div class= "archive-menu" id= "archive-menu">
+
       
         <div id = "archive-menu-options" class="pure-menu pure-menu-horizontal">
             <ul class="pure-menu-list">
                 <li id="myarchive-btn"class="pure-menu-item"><a href="#" class="pure-menu-link">My Archive</a></li>
-                <li  id="sandbox-btn" class="pure-menu-item"><a href="#" class="pure-menu-link">Sandbox</a></li>
+                <li  id="sandbox-btn" class="pure-menu-item"><a href="#" class="pure-menu-link">Open Resources</a></li>
             </ul>
         </div>
         
-        <div id = "myarchive-menu" ng-controller = 'archiveController'>
+        <div id = "myarchive-menu" >
             <div   class = "pure-menu-horizontal pure-menu-scrollable">
-                    <ul class="pure-menu-list" id= "archive-menu-list" ng-repeat= 'archive in myarchive' >
-                        <li class="pure-menu-item"> <a href="#" class="pure-menu-link">
+                    <ul class="pure-menu-list" id= "archive-menu-list" ng-repeat= 'myarchive in myarchive' >
+                        <li class="pure-menu-item"> <a href="#" class="pure-menu-link" ng-click = "openMyArchiveModal(myarchive)">
                          
-                            <p id="archive-title">{{archive.title}}</p>
+                            <p id="archive-title">{{myarchive.title}}</p>
                             
-                            <iframe ng-if="archive.link.includes('spotify') || archive.link.includes('youtube')" ng-src="{{trustSrc(archive.link)}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                            <iframe ng-if="myarchive.link.includes('spotify') || myarchive.link.includes('youtube')" ng-src="{{trustSrc(myarchive.link)}}" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                             
-                            <img  ng-if="!archive.link.includes('spotify') && !archive.link.includes('youtube')" ng-src = "{{archive.link}}" width="300" height="380">
+                            <img  ng-if="!archive.link.includes('spotify') && !myarchive.link.includes('youtube')" ng-src = "{{myarchive.link}}" width="300" height="380">
                         </a>
-                        <button ng-click= "removeItem(archive._id)" id= "delete-archive-btn" class = "pure-button">
-                                <i class="material-icons">close</i>
+                        <button ng-click= "removeItem(myarchive._id)" id= "delete-archive-btn" class = "pure-button">
+                            <i class="fa fa-trash fa-lg"></i>
                             </button>
                         
                         
@@ -37,13 +78,13 @@
             </div>
         </div>
             <div id = "sandbox-menu" >
-                <div ng-controller = "adminArchiveController">
+                <div>
                     <div class="header">
-                        <h2>Sandbox Archive</h2>
+                        <h2>Open Resources</h2>
                     </div>
                     <div class="pure-g">
                          <div class="photo-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3" ng-repeat = "archive in archives">
-                        <a >
+                        <a  ng-click = "openSandboxModal(archive)">
                             <img ng-if="!archive.url.includes('spotify') && !archive.url.includes('youtube')" ng-src = "{{archive.url}}">
                             <iframe ng-if="archive.url.includes('spotify') || archive.url.includes('youtube')" ng-src="{{trustSrc(archive.url)}}" frameborder="0" allowtransparency="true"></iframe>
                              <div class="overlay">

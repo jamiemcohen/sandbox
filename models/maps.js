@@ -2,6 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+
 //create a Schema
 var mapsSchema = new Schema({
     title: String,
@@ -15,6 +17,7 @@ var mapsSchema = new Schema({
         description: String, 
         media:  [String],
         createdAt: {type: Date, default: Date.now},
+        order:{type: Number, required: true, default: 0},
     }],
     myarchive: [{
         title: String,
@@ -35,6 +38,7 @@ mapsSchema.pre('save', function(next){
     }
     next();
 });
+
 
 
 //export the schema for use elsewhere

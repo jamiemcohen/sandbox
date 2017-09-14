@@ -1,3 +1,4 @@
+
 var filestack_API_KEY = "AFc2GWMAzS0N11VVTPG4Vz";
 var key = "abcdhjlrslamdev2017";
 var app = angular.module('myApp', ['angular-filepicker','gservice']);
@@ -31,31 +32,64 @@ app.controller('createMapCtrl', function($scope, $http){
     $scope.login = function(){
         
         //findone with url
-         $http.get('db/path/'+ $scope.login_url) 
-            .success(function(data){
-           // console.log(JSON.stringify(data)); //DEBUG
-            var mapData = JSON.stringify(data);
-                if(mapData.length > null_value_length){ //exists
-                   //check if passwords match
-                    if($scope.login_password == data.password){
-                        //direct to url if logged in 
-                         window.location.href=  'http://localhost:3000/edit/' + $scope.login_url;
+             $http.get('db/path/'+ $scope.login_url) 
+                .success(function(data){
+               // console.log(JSON.stringify(data)); //DEBUG
+                var mapData = JSON.stringify(data);
+                    if(mapData.length > null_value_length){ //exists
+                       //check if passwords match
+                        if($scope.login_password == data.password){
+                            //direct to url if logged in 
+                             window.location.href=  'http://localhost:3000/edit/' + $scope.login_url;
+                        }else{
+                        //error message if password invalid
+                            $('#error-login').text('Password does not match URL');
+                        }
+
                     }else{
-                    //error message if password invalid
-                        $('#error-login').text('Password does not match URL');
+
+                     //error message if not valid
+                       $('#error-login').text('URL not valid');
                     }
-                    
-                }else{
-                
-                 //error message if not valid
-                   $('#error-login').text('URL not valid');
-                }
-            })
-            .error(function(data) {
-             console.log('Error: ' + data);
-            });
+                })
+                .error(function(data) {
+                 console.log('Error: ' + data);
+                });
+
+        $scope.sendEmail = function(){
+            /*$http.get('db/path/'+ $scope.login_url) 
+                .success(function(data){
+                     if($scope.login_email == data.email){
+                        var transporter = nodemailer.createTransport({
+                          service: 'gmail',
+                          auth: {
+                            user: 'storyliner.donotreply@gmail.com',
+                            pass: 'slamdev2017'
+                          }
+                        });
+
+                        var mailOptions = {
+                          from: 'storyliner.donotreply@gmail.com',
+                          to:  $scope.login_email,
+                          subject: 'Your Password',
+                          text: 'Your Password for your map' + data.title + ' is ' + data.password 
+                        };
+
+                        transporter.sendMail(mailOptions, function(error, info){
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            console.log('Email sent: ' + info.response);
+                          }
+                        });
+                    }
+                })
+                .error(function(data) {
+                    console.log('Error: ' + data);
+                });
+            */
             
-    
+        }
                 
     
     
@@ -338,6 +372,9 @@ app.controller('archiveController', function($scope, $http, $sce){
     $scope.map._id = "";
     $scope.myarchive =[];
     $scope.map.markers = [];
+    $scope.sandbox = {};
+    $scope.archives = {};
+    $scope.modalArchive = {};
          
     //refresh data method
     var refreshData = function(){
@@ -354,15 +391,17 @@ app.controller('archiveController', function($scope, $http, $sce){
             console.log('Error: ' + data);
         });
     
-       
-        $http.get('../db/'+  $scope.map._id ) //double check for id matching
+        
+        $http.get('../archive')
         .success(function(data){
-            //console.log(JSON.stringify(data)); //DEBUG
-            $scope.myarchive = data.myarchive ; //set myarchive
+             $scope.archives = data;
         })
         .error(function(data) {
             console.log('Error: ' + data);
         });
+    
+    
+       
     
     
     };
@@ -414,18 +453,104 @@ app.controller('archiveController', function($scope, $http, $sce){
             console.log('Error: ' + data);
         });
     
+
     
+    
+   
     //refresh archive data on button click
     $('#archive-button').click(function(){
         refreshData();
     
     });
+    
+    
+    
+    $scope.openSandboxModal = function(archive){
+        $('#sandbox_hider').show();
+        $('#sandbox_popup_box').show();
+         var document_height = $( document ).height();
+        $("#sandbox_hider").css('height', document_height);
+        $scope.sandbox = archive;
+       
+    };
+    
+    
+    //on click hide the modal and return original view
+    $("#sandbox_buttonClose").click(function () {
+
+        closeSandboxModal();
+
+    });
+    //on escape key, close the modal
+    $(document).keyup(function(e) {
+        if (e.keyCode == KEYCODE_ESC) {
+            closeSandboxModal();
+        }
+    });
+
+    //close the modal by hiding the hider div and modal box, then showing the page content again
+    var closeSandboxModal = function(){
+        $("#sandbox_hider").fadeOut("slow");
+        $('#sandbox_popup_box').fadeOut("slow");
+       
+
+
+    }
+    
+    
+     $('#archive-button').click(function(){
+        refreshData();
+    
+    });
+    
+    
+    
+    $scope.openMyArchiveModal = function(archive){
+        $('#myarchive_hider').show();
+        $('#myarchive_popup_box').show();
+         var document_height = $( document ).height();
+        $("#myarchive_hider").css('height', document_height);
+        $scope.modalArchive = archive;
+       
+    };
+    
+    
+    //on click hide the modal and return original view
+    $("#myarchive_buttonClose").click(function () {
+
+        closeMyArchiveModal();
+
+    });
+    //on escape key, close the modal
+    $(document).keyup(function(e) {
+        if (e.keyCode == KEYCODE_ESC) {
+            closeMyArchiveModal();
+        }
+    });
+
+    //close the modal by hiding the hider div and modal box, then showing the page content again
+    var closeMyArchiveModal = function(){
+        $("#myarchive_hider").fadeOut("slow");
+        $('#myarchive_popup_box').fadeOut("slow");
+       
+
+
+    }
+    
+    $scope.arrayToString = function(meta){
+        if(meta != "undefined"){
+            return meta.toString();
+        }
+    
+    }
+    
 });
 
 //controls the admin's archive
 app.controller('adminArchiveController', function($scope, $http, $sce){
     //initialize scope variable
     $scope.archives = {};
+    $scope.sandbox = {};
    
   
     //refresh data function
@@ -491,6 +616,41 @@ app.controller('adminArchiveController', function($scope, $http, $sce){
         window.location.href = url;
     
     }
+    
+     
+    $scope.openSandboxModal = function(archive){
+        $('#archive_hider').show();
+        $('#archive_popup_box').show();
+         var document_height = $( document ).height();
+        $("#archive_hider").css('height', document_height);
+        $scope.sandbox = archive;
+       
+    };
+    
+    
+    //on click hide the modal and return original view
+    $("#archive_buttonClose").click(function () {
+
+        closeSandboxModal();
+
+    });
+    //on escape key, close the modal
+    $(document).keyup(function(e) {
+        if (e.keyCode == KEYCODE_ESC) {
+            closeSandboxModal();
+        }
+    });
+
+    //close the modal by hiding the hider div and modal box, then showing the page content again
+    var closeSandboxModal = function(){
+        $("#archive_hider").fadeOut("slow");
+        $('#archive_popup_box').fadeOut("slow");
+       
+
+
+    }
+    
+    
    
     
 });
@@ -546,6 +706,7 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
     $scope.marker.latitude = "";
     $scope.marker.longitude ="";
     $scope.marker.media =[];
+    $scope.marker.order = "";
     $scope.archives = []; //admin archives
     $scope.id = "";
     $scope.addedLinks = []; //array to keep track of added links
@@ -635,7 +796,7 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
     
     //save marker
     $scope.saveMarker = function(){
-        console.log("hello -- submit button");
+        
         refreshMyArchiveData(); //refresh scope variables again
        
         if($scope.addedLinks.length>0){ //if there are links to add
@@ -654,15 +815,15 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
         //get lat and long value -- often not updated because of jquery input method
         $scope.marker.latitude = $("#latitude").val(); 
         $scope.marker.longitude = $("#longitude").val();
-        
+        $scope.marker.order = $scope.map.markers.length +1;
         //push the marker to the marker array of a map
         refreshMyArchiveData(); // ensures scope variables will not be null
         
         //add marker to array of markers
         if($scope.marker.media == null){ //if no links - don't include media field
-            $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude});
+            $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude, order: $scope.marker.order});
         }else{ //new links to be added
-        $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude, media: $scope.marker.media});
+        $scope.map.markers.push({title: $scope.marker.title, description: $scope.marker.description, latitude:$scope.marker.latitude, longitude: $scope.marker.longitude, media: $scope.marker.media, order: $scope.marker.order});
         }
         
         //post the marker
@@ -673,13 +834,15 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
                 //Clean the form to allow the user to create new markers
                 $scope.addedLinks= [];
                 $scope.marker = {};
+                $scope.marker.latitude = "";
+                $scope.marker.longitude = "";
+        
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
         
-         $scope.addedLinks= [];
-        $scope.marker = {};
+      
 
     };
     
@@ -689,6 +852,132 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
    
 }]);
 
+app.controller('viewCtrl', function($scope, $http, $sce, gservice){
+    var KEYCODE_ESC = 27;
+    
+    $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+    
+    //get current path
+    var path = window.location.href;
+    path = path.replace('http://localhost:3000/maps/', '');
+    
+    
+    //initialize variables
+    $scope.map = {};
+    $scope.map.markers = []; 
+    $scope.map._id ="";
+    $scope.myarchive = []; //also include myarchive for post request
+    $scope.modal = {};
+    $scope.modal.links = [];
+    $scope.modal.title = "";
+    $scope.modal.description = "";
+    $scope.editMarker = {};
+    
+    //refresh markers method
+        var refreshMarkerData = function(){
+
+            $http.get('../db/path/'+ path)
+            .success(function(data){
+                //console.log(JSON.stringify(data)); //DEBUG
+               $scope.map._id = data._id;
+               $scope.map.markers = data.markers;
+               $scope.map = data; 
+                $scope.myarchive = data.myarchive;
+
+
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+
+        };
+    
+    //initialize map
+    refreshMarkerData();
+    gservice.refresh(36.1627, -86.7816);
+    
+        $scope.viewMarker = function(marker){
+            $scope.modal.links = marker.media;
+            $scope.modal.title = marker.title;
+            $scope.modal.description = marker.description;
+            console.log($scope.modal.title);
+            console.log($scope.modal.links);
+            $('#marker_hider').show();
+            $('#marker_popup_box').show();
+             var document_height = $( document ).height();
+            $("#marker_hider").css('height', document_height);
+
+
+
+
+        }
+
+
+        $("#marker_hider").on('click', function(){
+
+            closeModal();
+
+        })
+
+        //on click hide the modal and return original view
+        $("#marker_buttonClose").click(function () {
+
+            closeModal();
+
+        });
+        //on escape key, close the modal
+        $(document).keyup(function(e) {
+            if (e.keyCode == KEYCODE_ESC) {
+
+                closeModal();
+            }
+        });
+
+        //close the modal by hiding the hider div and modal box, then showing the page content again
+        var closeModal = function(){
+            $("#marker_hider").fadeOut("slow");
+            $('#marker_popup_box').fadeOut("slow");
+
+
+
+        }
+
+
+
+
+        //succint refresh markers with maps reload
+        var refreshMarkers = function(){
+
+            $http.get('../db/path/'+ path)
+            .success(function(data){
+               // console.log(JSON.stringify(data));
+               $scope.map.id = data._id;
+               $scope.map.markers = data.markers;
+                $scope.map.myarchive = data.myarchive;
+               $scope.map = data; 
+
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+            gservice.refresh(36.1627, -86.7816); //reload map with marker data
+
+        };
+
+   
+        $scope.openWindow = function(lat, long){
+            gservice.popUpMarker(lat, long);
+
+        };
+    
+
+
+
+});
 
     
 //Markers view controller
@@ -713,6 +1002,7 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
     $scope.modal.links = [];
     $scope.modal.title = "";
     $scope.modal.description = "";
+    $scope.editMarker = {};
     
     //refresh markers method
     var refreshMarkerData = function(){
@@ -824,23 +1114,48 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
         console.log('removing' );
          if (confirm('Are you sure you want to delete this?')) { //delete if confirmed action
             //remove the record from array
-            for( var i= $scope.map.markers.length-1; i>=0; i--) {
+            var order = 0;
+            for( var i=0 ; i<$scope.map.markers.length;  i++) {
+                
                 if( $scope.map.markers[i]._id == marker) {
+                    order = $scope.map.markers[i].order; 
                     $scope.map.markers.splice(i,1);
+                    
                 }
+               
+                    
+                
+
             }
+             //decrease order of all other elements
+             for( var i=0 ; i<$scope.map.markers.length;  i++) {
+                
+                if( $scope.map.markers[i].order > order) {
+                    $scope.map.markers[i].order =   $scope.map.markers[i].order - 1;
+                   
+                    
+                }
+               
+                    
+                
+
+            }
+             
+
             //post the archive
             $http.put('/db/'+ $scope.map._id, {myarchive: $scope.myarchive, markers: $scope.map.markers})
                 .success(function(data){
                     console.log(JSON.stringify(data));
-
+                    gservice.refresh(36.1627, -86.7816);
+                    refreshMarkers(); //refresh markers after deletion
+                    
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
                 });
 
 
-            refreshMarkers(); //refresh markers after deletion
+            
          }
     };
    
@@ -870,6 +1185,165 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
     };
     
     
+    $scope.swapLeft = function(marker){
+            //swap the created at dates for the two markers
+            
+            var currentOrder = marker.order
+            
+            refreshMarkerData(); 
+            //remove old markers from array and push the updated ones
+            for( var i= $scope.map.markers.length-1; i>=0; i--) {
+                    //find the marker with order-1 and change to current order
+                     if( $scope.map.markers[i].order == (currentOrder-1)) {
+                        console.log("changing" + $scope.map.markers[i]._id );
+                        $scope.map.markers[i].order = currentOrder;
+                    }
+                
+                    //change current order
+                
+                    if( $scope.map.markers[i]._id == marker._id) {
+                        console.log("removing" + $scope.map.markers[i]._id );
+                        $scope.map.markers[i].order = currentOrder-1;
+                    }
+            }
+     
+            $http.put('/db/'+ $scope.map._id, {myarchive: $scope.myarchive, markers: $scope.map.markers})
+                    .success(function(data){
+                        console.log(JSON.stringify(data));
+                         //refresh
+                        refreshMarkers();
+
+                    })
+                    .error(function(data) {
+                        console.log('Error: ' + data);
+                    });
+
+    }
+    
+    $scope.swapRight = function(marker){
+            //swap the created at dates for the two markers
+            
+            var currentOrder = marker.order
+            
+            refreshMarkerData(); 
+            //remove old markers from array and push the updated ones
+            for( var i= $scope.map.markers.length-1; i>=0; i--) {
+                   
+                
+                    //find the marker with order+1 and change to current order
+                     if( $scope.map.markers[i].order == (currentOrder+1)) {
+                        console.log("changing" + $scope.map.markers[i]._id );
+                        $scope.map.markers[i].order = currentOrder;
+                    }
+                
+                     //change current order
+                        if( $scope.map.markers[i]._id == marker._id) {
+                            console.log("changing" + $scope.map.markers[i]._id );
+                            $scope.map.markers[i].order = currentOrder+1;
+                        }
+                
+                
+
+            }
+     
+            $http.put('/db/'+ $scope.map._id, {myarchive: $scope.myarchive, markers: $scope.map.markers})
+                    .success(function(data){
+                        console.log(JSON.stringify(data));
+                         //refresh
+                        refreshMarkers();
+
+                    })
+                    .error(function(data) {
+                        console.log('Error: ' + data);
+                    });
+
+    }
+    
+    
+    //edit marker fields
+ 
+    $scope.edit = function(marker){
+        $scope.addedLinks = [];
+        $('#edit_hider').show();
+        $('#edit_popup_box').show();
+         var document_height = $( document ).height();
+        $("#edit_hider").css('height', document_height);
+        $scope.editMarker = marker;
+       
+    };
+    
+    
+    //on click hide the modal and return original view
+    $("#edit_buttonClose").click(function () {
+
+        closeEditModal();
+
+    });
+    //on escape key, close the modal
+    $(document).keyup(function(e) {
+        if (e.keyCode == KEYCODE_ESC) {
+            closeEditModal();
+        }
+    });
+
+    //close the modal by hiding the hider div and modal box, then showing the page content again
+    var closeEditModal = function(){
+        $("#edit_hider").fadeOut("slow");
+        $('#edit_popup_box').fadeOut("slow");
+       
+
+
+    }
+   
+    $scope.updateMarker = function(){
+    //find old marker and update fields
+        refreshMarkerData();
+        for(var i = 0; i< $scope.map.markers.length; i++){
+            if($scope.map.markers[i]._id == $scope.editMarker._id){
+                    //update fields
+                    $scope.map.markers[i].title = $scope.editMarker.title;
+                    $scope.map.markers[i].description = $scope.editMarker.description;
+                    $scope.map.markers[i].media = $scope.editMarker.media;
+
+            }
+        
+        
+        }
+ 
+    //post the marker
+         $http.put('/db/'+ $scope.map._id, {myarchive: $scope.myarchive, markers: $scope.map.markers})
+                    .success(function(data){
+                        console.log(JSON.stringify(data));
+                         //refresh
+                        refreshMarkers();
+                        closeEditModal();
+
+                    })
+                    .error(function(data) {
+                        console.log('Error: ' + data);
+                    });
+
+    
+    
+    
+    
+    
+    }
+    
+    
+    $scope.removeMedia  = function(link){
+       if(confirm("Are you sure you want to remove this media?")){
+            for(var i=0; i< $scope.editMarker.media.length; i++){
+                if($scope.editMarker.media[i] == link){
+                    $scope.editMarker.media.splice(i,1); 
+                    $scope.editMarker.media.$apply();
+                }
+
+           }
+       }
+    
+    
+    }
     
 
 });

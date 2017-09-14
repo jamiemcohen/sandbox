@@ -9,14 +9,15 @@
         <form id= "create-form-content" class="pure-form">
             <h3>Create a New Marker</h3>
             <fieldset class="pure-group">
-                <p class="pure-input-1"> Double Click on Map to place marker</p>
-                <input id="title" type="text"   class="pure-input-1"  ng-model ="marker.title" placeholder="Title">
+                <p class="pure-input-1"> Double Click on Map to pick a place</p>
+                <input id="title" type="text"   class="pure-input-1"  ng-model ="marker.title" placeholder="Name of Place">
                 
                 <textarea id ="description"   class="pure-input-1"  ng-model ="marker.description" placeholder="Tell us a story..." ></textarea>
                 <input id="latitude" type="text"  class="pure-input-1"   ng-model ="marker.latitude" placeholder="Latitude">
                
                 <input id="longitude" type="text"   class="pure-input-1"  ng-model ="marker.longitude" placeholder="Longitude">
-                <button  id = "addMedia-btn" class="pure-button pure-input-1" >  <i class="fa fa-plus" ></i>  Add Media  </button>
+               
+                <button  id ="addMedia-btn" class="pure-button pure-input-1" >  <i class="fa fa-plus" ></i>  Add Media  </button>
             </fieldset >
          
 
@@ -48,7 +49,7 @@
             <ul class="pure-menu-list">
                 <li class="pure-menu-item" id = "addMedia-btn-back" ><a href="#" class="pure-menu-link"> <i class="fa fa-chevron-left" ></i> Back</a></li>
                 <li class="pure-menu-item" id = "addMedia-btn-myarchive" ng-click= refresh()><a href="#" class="pure-menu-link">  <i class="fa fa-folder" ></i> My Archive </a></li>
-                <li class="pure-menu-item " id = "addMedia-btn-sandbox" ng-click= refresh() > <a href="#" class="pure-menu-link">  <i class="fa fa-th"></i> Sandbox</a></li>
+                <li class="pure-menu-item " id = "addMedia-btn-sandbox" ng-click= refresh() > <a href="#" class="pure-menu-link">  <i class="fa fa-th"></i> Open Resources </a></li>
             </ul>
         </div>
      <div id="media-scrollable-myarchive">

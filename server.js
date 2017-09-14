@@ -58,8 +58,14 @@ app.get('/', function(req, res) {
 	res.render('index');					  
 });
 
-app.get('/editor', function(req, res) {
-	res.render('editor');					  
+app.get('/maps/:path', function(req, res) {
+	mapDB.count({path: req.params.path}, function (err, count){ 
+        if(count>0){
+             res.render('viewMode');
+        }else{
+            res.render('404');
+        }
+    });
 });
 
 app.get('/admin', function(req, res) {
@@ -69,6 +75,7 @@ app.get('/admin', function(req, res) {
 app.get('/pqw4ry', function(req, res) {
 	res.render('adminpanel');					  
 });
+
 
 app.get('/pqw4ry/archive/:id', function(req, res) {
 	mapDB.count({_id: req.params.id}, function (err, count){ 
@@ -124,25 +131,6 @@ app.get('/edit/:path', function(req , res){
 });
 
 
-/*app.get('/edit/*', function(req, res){
-       
-        res.render('editor');	
-    
-    
-});*/
-
-
-
-//set new dynamic routes for viewing
-/*
-    app.get('/maps/*', function(req, res){
-        
-    
-    
-    });
-
-
-*/
 
 
 
@@ -157,7 +145,7 @@ app.route('/db')
     .get(map.getAll);
 app.route('/db/:id')
     .get(map.getOne)
-    .put(map.addMarkerArchive);
+    .put(map.updateMap);
 app.route('/db/title/:title')
     .get(map.getOneTitle);
 app.route('/db/path/:path')

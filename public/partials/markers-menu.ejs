@@ -9,26 +9,66 @@
                             <div id="marker_popup_box">
                                 <a id="marker_buttonClose"><i class="fa fa-times"></i></a>
                                 <div id = "modal-window">
+                                     <h2>{{modal.title}}</h2>
+                                    <p>{{modal.description}}</p>
                                     <div ng-repeat =  "link in modal.links">
-
+                                            
                                         <img id="modal-photo-size" ng-if="!link.includes('spotify') && !link.includes('youtube')"ng-src = "{{link}}">
                                         <iframe id = "modal-meda-size" ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
 
 
 
                                     </div>
-                                    <h2>{{modal.title}}</h2>
-                                    <p>{{modal.description}}</p>
+                                   
                                 </div>
                         
                                 
                                 
                             </div>    
-                           </div>
+        </div>
+        <div id="edit_hider">
+            <div id="edit_popup_box">
+                <a id="edit_buttonClose"><i class="fa fa-times"></i></a>
+                <div id = "edit-window">
+                    <form id= "create-form-content" class="pure-form">
+                   
+                        <fieldset class="pure-group">
+                            <p class="pure-input-1"> Edit Marker Information </p>
+                            <input id="title" type="text"   class="pure-input-1"  ng-model ="editMarker.title" placeholder="Title">
+
+                            <textarea id ="description"   class="pure-input-1"  ng-model ="editMarker.description" placeholder="Tell us a story..." ></textarea>        
+                        </fieldset >        
+                    <div class = "pure-g" ng-repeat =  "link in editMarker.media">
+                        <div class = "pure-u-1-1" > 
+                            <a class = "pure-button" href = "" ng-click = "removeMedia(link)" ><i class="fa fa-trash"></i></a>
+                            <img  id = "edit-media-size" ng-if="!link.includes('spotify') && !link.includes('youtube')"ng-src = "{{link}}">
+                            <iframe id = "edit-media-size" ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
+                            
+                        </div>          
+
+
+                    </div>    
+                        
+                        <fieldset class="pure-group">
+                            <button type="submit" class="pure-button pure-button-primary pure-input-1"  ng-click = "updateMarker()">Save</button>
+                        </fieldset>
+
+                    </form>
+                               
+                                    
+                </div>
+                        
+                                
+                                
+                            </div>    
+        </div>    
         <div class= "marker-menu"  id= "marker-menu" >
+               <button  id = "header-close-button" class = "button-large pure-button">
+                    <i class="material-icons">close</i>
+                </button>
             <div class = "pure-menu-horizontal pure-menu-scrollable">
                     
-                        <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= 'marker in map.markers' >
+                        <ul class="pure-menu-list" id= "marker-menu-list" ng-repeat= "marker in map.markers | orderBy: '+order'" >
                         <li   id="marker-li" class="pure-menu-item" id= "marker-item">
                         <div class= "pure-g">
                             <div class="photo-box pure-u-1" id="photo-box-size">  
@@ -44,10 +84,10 @@
                                      <p>{{marker.description}}</p>
                                      <p id= "metadata" >{{marker.latitude}}, {{marker.longitude}} </p>
                                 <span>
-                                    <button ng-if = "!$first" type="button" ng-click="swapLeft(map.markers[$index], marker)" id="openWindow"><i class="fa fa-arrow-left" ></i> </button>
+                                    <button ng-if = "!$first" type="button" ng-click="swapLeft(marker)" id="openWindow"><i class="fa fa-arrow-left" ></i> </button>
                                 </span>
                                 <span>
-                                    <button  ng-if = "!$last" type="button" ng-click="swapRight(map.markers[$index+1], marker)" id="openWindow"><i class="fa fa-arrow-right" ></i> </button>
+                                    <button  ng-if = "!$last" type="button" ng-click="swapRight( marker)" id="openWindow"><i class="fa fa-arrow-right" ></i> </button>
                                 </span>
                                  <span>
                                     <button type="button" ng-click = "viewMarker(marker)"><i class="fa fa-arrows-alt fa-lg"></i>
@@ -61,7 +101,7 @@
                                    <button type="button" id="delete-btn" ng-click="removeMarker(marker._id)"><i class="fa fa-trash fa-lg"></i> </button>
                                 </span>
                                 <span>
-                                    <button type="button" ng-click="edit(archive._id)"><i class="fa fa-pencil fa-lg"></i> </button>
+                                    <button type="button" ng-click="edit(marker)"><i class="fa fa-pencil fa-lg"></i> </button>
                                 </span>
 
                             </aside>

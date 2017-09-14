@@ -455,3 +455,72 @@ iframe{
 
 }
 
+
+#archive_hider{
+    
+        display:none;
+        position: absolute;
+        height:100vh;
+        width:100%;
+        
+        text-align: center;
+            /*
+        z- index must be lower than pop up box
+       */
+        z-index: 99;
+       background-color: #E4E4E4;
+        opacity: 1;
+        
+       
+}
+
+#archive_popup_box  {
+        display:none;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5%;
+        width:70%;
+        z-index:100; 
+        display: inline-block;
+        background: transparent;
+       
+
+}
+
+#archive_buttonClose{
+    float:right;
+    margin-right: 1em;
+    color: gray;
+   
+
+
+}
+#archive_buttonClose:hover{
+    color: black;
+
+
+}
+
+#photo-box-size:hover{
+    border: 2px solid white;
+
+}
+
+#modal-window{
+    color:black;
+
+}
+
+#modal-photo-size{
+    padding-top: 5%;
+    width: 100%;
+
+
+}
+#modal-media-size{
+    padding-top: 5%;
+    height:100vh;
+   
+
+}
+
