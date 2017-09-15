@@ -51,15 +51,16 @@
         </div>
         <div id = "forgotPasswordForm">
             <form class="pure-form">
-            <h3>Confirm your email</h3>
+            <h3 >Confirm your email</h3>
             <p id = "error-login-forgot"></p>
             <fieldset class="pure-group">
                  <input type="text" ng-model = "login_url"class="pure-input-1-2" placeholder="Map Path: StoryLiner.org/maps/YOUR URL" required>
-                <input type="email" ng-model = "login_email"class="pure-input-1-2" placeholder="Email" required>
-                
+                <input  type="email" ng-model = "login_email"class="pure-input-1-2" placeholder="Email" required>
+                <a href= '#' id = "login" >login</a>
             </fieldset>
 
-            <button type="submit" ng-click = 'sendEmail()'class="pure-button pure-input-1-2 pure-button-primary">Send Password</button>
+            <button type="submit" ng-click ='sendEmail()'class="pure-button pure-input-1-2 pure-button-primary">Show Password</button>
+                
         </form>
         </div>
     </div>    

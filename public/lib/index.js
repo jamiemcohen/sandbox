@@ -52,6 +52,16 @@ var closeModal = function(){
 $('#forgot-password').on('click', function(){
     $('#modalForm').hide();
     $('#forgotPasswordForm').show();
+    $("#error-login-forgot").text("");
+    $("#error-login").text("");
+
+});
+
+$('#login').on('click', function(){
+    $('#modalForm').show();
+    $('#forgotPasswordForm').hide();
+    $("#error-login-forgot").text("");
+    $("#error-login").text("");
 
 });
     

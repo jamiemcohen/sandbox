@@ -583,6 +583,54 @@ text-overflow: ellipsis; // This is where the magic happens
 }
 
 
+#view-menu-control{
+    width: 100%;
+    background-color:  #F5A623;
+    display: inline;
+    float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+
+
+}
+
+
+#close-menu-Btn{
+    float:right;
+   padding-right: 20px;
+    font-size: 110%;
+    color:white;
+
+}
+
+#close-menu-Btn:hover{
+    color:gray;
+
+}
+
+#open-menu-Btn{
+    float:right;
+    padding-right: 20px;
+    font-size: 110%;
+    color:white;
+    display: none;
+
+}
+
+#open-menu-Btn:hover{
+    color:gray;
+
+}
+
+
+#toggle-menu-title{
+    color:white;
+    float:left;
+    margin-left: 20px;
+    font-size: 25%;
+
+}
 
 
 

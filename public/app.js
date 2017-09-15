@@ -56,38 +56,22 @@ app.controller('createMapCtrl', function($scope, $http){
                  console.log('Error: ' + data);
                 });
 
+    };
         $scope.sendEmail = function(){
-            /*$http.get('db/path/'+ $scope.login_url) 
+            $http.get('db/path/'+ $scope.login_url) 
                 .success(function(data){
-                     if($scope.login_email == data.email){
-                        var transporter = nodemailer.createTransport({
-                          service: 'gmail',
-                          auth: {
-                            user: 'storyliner.donotreply@gmail.com',
-                            pass: 'slamdev2017'
-                          }
-                        });
-
-                        var mailOptions = {
-                          from: 'storyliner.donotreply@gmail.com',
-                          to:  $scope.login_email,
-                          subject: 'Your Password',
-                          text: 'Your Password for your map' + data.title + ' is ' + data.password 
-                        };
-
-                        transporter.sendMail(mailOptions, function(error, info){
-                          if (error) {
-                            console.log(error);
-                          } else {
-                            console.log('Email sent: ' + info.response);
-                          }
-                        });
+                    if($scope.login_email == data.email){//matches an existing email
+                    $("#error-login-forgot").text ("Your Password is " + data.password);
+                        console.log('your password is' + data.password);
+                    }else{
+                    
+                     $("#error-login-forgot").text("That Email and URL combination do not match ");    
                     }
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
                 });
-            */
+            
             
         }
                 
@@ -96,7 +80,7 @@ app.controller('createMapCtrl', function($scope, $http){
     
     
     
-    }
+    
      
     $scope.createNewMap = function(){
        refreshFields(); //refreshs styling properties
@@ -153,8 +137,8 @@ app.controller('createMapCtrl', function($scope, $http){
                 console.log('Error: ' + data);
             });
     
-       }
     };
+    
     
     //validations
     var invalidData = function(errorMessages){
@@ -246,7 +230,7 @@ app.controller('createMapCtrl', function($scope, $http){
     }
     
     
-    
+    };
 });
 
 
@@ -538,7 +522,7 @@ app.controller('archiveController', function($scope, $http, $sce){
     }
     
     $scope.arrayToString = function(meta){
-        if(meta != "undefined"){
+        if(!(meta == "undefined")){
             return meta.toString();
         }
     
@@ -548,6 +532,8 @@ app.controller('archiveController', function($scope, $http, $sce){
 
 //controls the admin's archive
 app.controller('adminArchiveController', function($scope, $http, $sce){
+     var KEYCODE_ESC = 27;
+    
     //initialize scope variable
     $scope.archives = {};
     $scope.sandbox = {};
@@ -975,7 +961,23 @@ app.controller('viewCtrl', function($scope, $http, $sce, gservice){
         };
     
 
+        $scope.closeMenu = function(){
+        
+            $("#view-menu-top").hide();
+            $('#close-menu-Btn').hide();
+            $('#open-menu-Btn').show();
+            $('#map').css('height', '100vh');
 
+        }
+        
+        $scope.openMenu = function(){
+        
+            $("#view-menu-top").show();
+            $('#close-menu-Btn').show();
+            $('#open-menu-Btn').hide();
+            $('#map').css('height', '70vh');
+
+        }
 
 });
 

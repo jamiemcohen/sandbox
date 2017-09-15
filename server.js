@@ -116,6 +116,7 @@ app.get('/pqw4ry/edit/:id', function(req, res) {
 });
 
 
+
 //set new dynamic edit routes
 
 app.get('/edit/:path', function(req , res){
@@ -129,6 +130,8 @@ app.get('/edit/:path', function(req , res){
     }); 
     
 });
+
+
 
 
 
