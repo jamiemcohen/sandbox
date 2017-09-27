@@ -25,11 +25,18 @@ module.exports = function(){
             //creates new marker
             var newArchive = new Archive(req.body);
             //save to db
+            console.log('before timeout');
             newArchive.save(function(err){
-                if(err) res.send(err);
+                if(err) {
+                    res.send(err)
+                    console.log("getting an error" + err);
+                };
+                
                 //If no errors, send it back to the client
                 res.json(req.body);
+                
             });
+            console.log('after timeout');
              
         },
         

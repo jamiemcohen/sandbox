@@ -14,17 +14,31 @@ app.use(methodOverride());
 
 //database
 var mongoose = require('mongoose');         //get mongoose module
-mongoose.connect('mongodb://localhost:27017/myproject'); //connect to database
+mongoose.Promise = global.Promise ;         //create global promise
+//mongoose.connection.openUri('mongodb://jamiecohen95:9549909972@sandbox-shard-00-00-46qsz.mongodb.net:27017,sandbox-shard-00-01-46qsz.mongodb.net:27017,sandbox-shard-00-02-46qsz.mongodb.net:27017/test?ssl=true&replicaSet=sandbox-shard-0&authSource=admin'); //connect to database
+
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };  
+//connect to cloud database
+//mongoose.connect('mongodb://jamiecohen:NinjaMango12@ds147304.mlab.com:47304/testingdb', options);
+mongoose.connect('mongodb://jamie:slamdev2017@ds139124.mlab.com:39124/sandboxdev', options); 
+
+//connect to local database
+//mongoose.connect('mongodb://localhost:27017/myproject'); 
 var db = mongoose.connection; //set to variable
 db.on('error', console.error.bind(console, 'connection error:')); //
 
 
 //routes
-var archive = require('./routes/archive.js')(app);  
-var marker = require('./routes/marker.js')(app); 
-var map = require('./routes/map.js')(app);  
+var archive = require('./routes/archive.js')({db, app});  
+var marker = require('./routes/marker.js')({db, app}); 
+var map = require('./routes/map.js')({db, app});  
 var mapDB = require('./models/maps.js');
 var archiveDB = require('./models/archives.js');
+
+
+
+
 
 var isPath = function(req, res){
            
@@ -45,6 +59,8 @@ var isPath = function(req, res){
            
         };
 
+
+
 //set view engine to read ejs files instead of html
 app.set("view engine", "ejs");
 
@@ -59,7 +75,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/maps/:path', function(req, res) {
-	mapDB.count({path: req.params.path}, function (err, count){ 
+	mapDB.count({path: req.params.path.toLowerCase()}, function (err, count){ 
         if(count>0){
              res.render('viewMode');
         }else{
@@ -120,7 +136,7 @@ app.get('/pqw4ry/edit/:id', function(req, res) {
 //set new dynamic edit routes
 
 app.get('/edit/:path', function(req , res){
-    mapDB.count({path: req.params.path}, function (err, count){ 
+    mapDB.count({path: req.params.path.toLowerCase()}, function (err, count){ 
         if(count>0){
             res.render('editor');
         }else{

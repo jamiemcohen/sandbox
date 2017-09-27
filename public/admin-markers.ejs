@@ -53,7 +53,7 @@
                                     <td>{{marker.description}}</td>
                                     <td>{{marker.latitude}}, {{marker.longitude}}</td>
                                     <td>{{marker.createdAt}}</td>
-                                    <td ng-repeat= "link in links"><a ng-href = 'link'>
+                                    <td ng-repeat= "link in marker.media"><a ng-href = 'link'>
                                              <img ng-if="!link.includes('spotify') && !link.includes('youtube')" ng-src = "{{link}}" id = "media-thumbnail">
                 <iframe ng-if="link.includes('spotify') || link.includes('youtube')" ng-src="{{trustSrc(link)}}" frameborder="0" allowtransparency="true" id = "media-thumbnail"></iframe>
                  <div class="overlay">

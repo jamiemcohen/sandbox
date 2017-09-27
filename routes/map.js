@@ -27,7 +27,7 @@ module.exports = function(){
             //save to db
                 
             newMap.save(function(err){
-                if(err) res.send(err);
+                if(err) return res.send(err);
                 //If no errors, send it back to the client
                 res.json(req.body);
             });

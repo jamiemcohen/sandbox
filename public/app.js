@@ -3,7 +3,9 @@ var filestack_API_KEY = "AFc2GWMAzS0N11VVTPG4Vz";
 var key = "abcdhjlrslamdev2017";
 var app = angular.module('myApp', ['angular-filepicker','gservice']);
 var null_value_length = 4;
-//let BASE_URL = 'http://localhost:3000';
+var BASE_URL = 'http://localhost:3000';
+
+
 app.config(function(filepickerProvider){
 
     filepickerProvider.setKey(filestack_API_KEY);
@@ -40,7 +42,8 @@ app.controller('createMapCtrl', function($scope, $http){
                        //check if passwords match
                         if($scope.login_password == data.password){
                             //direct to url if logged in 
-                             window.location.href=  'http://localhost:3000/edit/' + $scope.login_url;
+                            getBaseUrl();
+                             window.location.href=  BASE_URL + '/edit/' + $scope.login_url;
                         }else{
                         //error message if password invalid
                             $('#error-login').text('Password does not match URL');
@@ -88,7 +91,7 @@ app.controller('createMapCtrl', function($scope, $http){
         //console.log("invalid Data? :" + invalidData()); //DEBUG
         var info = ""; //initialize string variable 
          var errorMessages = "ERROR : "; // collects error messages
-        $http.get('db/path/'+ $scope.map.path) 
+        $http.get('db/path/'+ $scope.map.path.toLowerCase()) 
         .success(function(data){
             //console.log(JSON.stringify(data)); //DEBUG
             //console.log(typeof(data)); //DEBUG
@@ -117,13 +120,16 @@ app.controller('createMapCtrl', function($scope, $http){
         
         
        if(!invalidData(errorMessages) && info.length <= 4){ // if no errors and record does not exist in DB (i.e. equals nulls)
-        $http.post('/db', $scope.map) //create the map
+        var url  = "";
+           $http.post('/db', $scope.map) //create the map
             .success(function(data){
                 //console.log(JSON.stringify(data)); //DEBUG
                 $('#error-log').addClass('save-log'); // CSS styling success 
-                $('#error-log').text("New map created at StoryLiner.org/maps/" + $scope.map.path);
+               getBaseUrl();
+                $('#error-log').text("New map created at " + BASE_URL +"/maps/" + $scope.map.path.toLowerCase());
                 
-                var url =  "http://localhost:3000/edit/" + $scope.map.path; //new path to navigate to 
+               getBaseUrl(); 
+               url =  BASE_URL + "/edit/" + $scope.map.path.toLowerCase(); //new path to navigate to 
                 //Clean the form to allow the user to create new 
                 $scope.map = {};
                 $scope.confirmPassword ="";
@@ -135,10 +141,15 @@ app.controller('createMapCtrl', function($scope, $http){
             })
             .error(function(data) {
                 console.log('Error: ' + data);
+            })
+            .finally(function() {
+               //window.location.href= url;
             });
+
+           
     
+        }
     };
-    
     
     //validations
     var invalidData = function(errorMessages){
@@ -215,6 +226,10 @@ app.controller('createMapCtrl', function($scope, $http){
     
     }
     
+    
+   
+    
+       
     //method to reset all styling for css
     var refreshFields = function(){
         $('#error-log').removeClass('error-log');
@@ -228,9 +243,6 @@ app.controller('createMapCtrl', function($scope, $http){
     
     
     }
-    
-    
-    };
 });
 
 
@@ -240,7 +252,8 @@ app.controller('filestackCtrl', function($scope, $http){
     
     //get current location for db access
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/edit/', '');
+    getBaseUrl();
+    path = path.replace(BASE_URL + '/edit/', '');
     
     //initialize scope variables
     $scope.map = {};
@@ -348,7 +361,8 @@ app.controller('filestackCtrl', function($scope, $http){
 app.controller('archiveController', function($scope, $http, $sce){
     //get current location of path
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/edit/', '');
+    getBaseUrl();
+    path = path.replace( BASE_URL + '/edit/', '');
     
     
     //initialize scope variables
@@ -598,7 +612,8 @@ app.controller('adminArchiveController', function($scope, $http, $sce){
     });
    
     $scope.edit = function(archive){ // edit button takes you to edit page
-        url = 'http://localhost:3000/pqw4ry/edit/' + archive;
+        getBaseUrl();
+        url = BASE_URL + '/pqw4ry/edit/' + archive;
         window.location.href = url;
     
     }
@@ -653,7 +668,8 @@ app.controller('adminController', ['$scope', '$http', '$sce', function($scope, $
                 console.log($scope.password)
                 if($scope.password == key){ //if it is correct go to admin panel
                     $('#login').hide();
-                     window.location.href= 'http://localhost:3000/pqw4ry';
+                    getBaseUrl();
+                     window.location.href= BASE_URL + '/pqw4ry';
                     
                 }else{ //error message
                      $('#legend').text("Sorry, That password is incorrect");
@@ -682,7 +698,8 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
      
     //get current location
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/edit/', '');
+    getBaseUrl();
+    path = path.replace( BASE_URL + '/edit/', '');
     console.log('in controller:' + path);
     
     //initialize scope variables
@@ -724,7 +741,8 @@ app.controller('createController', ['$scope', '$http', '$sce', function($scope, 
      var refreshMyArchiveData = function(){
         //refresh path 
         path = window.location.href;
-        path = path.replace('http://localhost:3000/edit/', '');
+         getBaseUrl();
+        path = path.replace(BASE_URL + '/edit/', '');
          
         
          
@@ -847,7 +865,8 @@ app.controller('viewCtrl', function($scope, $http, $sce, gservice){
     
     //get current path
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/maps/', '');
+    getBaseUrl();
+    path = path.replace( BASE_URL + '/maps/', '');
     
     
     //initialize variables
@@ -992,7 +1011,8 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
     
     //get current path
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/edit/', '');
+    getBaseUrl();
+    path = path.replace(BASE_URL + '/edit/', '');
     
     
     //initialize variables
@@ -1166,7 +1186,8 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
     //refresh all fields on load
     $("#marker-menu").load( function(){ 
         path = window.location.href;
-        path = path.replace('http://localhost:3000/edit/', '');
+        getBaseUrl();
+        path = path.replace(BASE_URL + '/edit/', '');
          refreshMarkers()
          gservice.refresh(36.1627, -86.7816);
     });
@@ -1174,7 +1195,8 @@ app.controller('markersCtrl', function($scope, $http, $sce, gservice){
     //refresh all fields on click
      $('#markers-button').on('click', function(){
           path = window.location.href;
-        path = path.replace('http://localhost:3000/edit/', '');
+         getBaseUrl();
+        path = path.replace( BASE_URL + '/edit/', '');
          refreshMarkers()
          gservice.refresh(36.1627, -86.7816);
         
@@ -1456,7 +1478,8 @@ app.controller('adminEditController', function($scope, $http){
     
     //get current path location for which archive
     var path = window.location.href;
-    path = path.replace( 'http://localhost:3000/pqw4ry/edit/', '');
+    getBaseUrl();
+    path = path.replace( BASE_URL + '/pqw4ry/edit/', '');
          
     //refresh field data
     var refreshData = function(){
@@ -1487,7 +1510,8 @@ app.controller('adminEditController', function($scope, $http){
                 .success(function(data){
                    
                     console.log(JSON.stringify(data));
-                    window.location.href =  'http://localhost:3000/pqw4ry/'; //return to homepage
+                    getBaseUrl();
+                    window.location.href =  BASE_URL + '/pqw4ry/'; //return to homepage
                 })
                 .error(function(data) {
                     console.log('Error: ' + data);
@@ -1522,7 +1546,8 @@ app.controller('adminEditController', function($scope, $http){
 app.controller('admin-archive-Controller', function($scope, $http, $sce){
     //get current location
     var path = window.location.href;
-    path = path.replace(  'http://localhost:3000/pqw4ry/archive/', '');
+    getBaseUrl();
+    path = path.replace(  BASE_URL + '/pqw4ry/archive/', '');
     
     //initialize variables
     $scope.map = {};
@@ -1568,7 +1593,8 @@ app.controller('admin-archive-Controller', function($scope, $http, $sce){
 //controller for admin markerds controller
 app.controller('admin-markers-Controller', function($scope, $http, $sce){
     var path = window.location.href;
-    path = path.replace('http://localhost:3000/pqw4ry/marker/', '');
+    getBaseUrl();
+    path = path.replace( BASE_URL+'/pqw4ry/marker/', '');
     $scope.map = {};
     $scope.markers ={};
     $scope.links = []
@@ -1589,6 +1615,12 @@ app.controller('admin-markers-Controller', function($scope, $http, $sce){
     
     
     };
+    //array to string method
+    $scope.arrayToString = function(links){
+        return links.toString();
+    
+    }
+    
     
     
     refreshData();
@@ -1625,14 +1657,16 @@ app.controller('adminMapsController', function($scope, $http, $sce){
     }
     
     $scope.showArchiveTable = function(map){
-        var url = 'http://localhost:3000/pqw4ry/archive/' + map
+        getBaseUrl();
+        var url = BASE_URL + '/pqw4ry/archive/' + map
         window.location.href= url;
             
 
     };
     
     $scope.showMarkersTable = function(map){
-        var url = 'http://localhost:3000/pqw4ry/marker/' + map
+        getBaseUrl();
+        var url = BASE_URL + '/pqw4ry/marker/' + map
         window.location.href= url;
             
 
@@ -1704,6 +1738,21 @@ var spotifyLinkParse  = function(link){
         return link;
     }
     
+}
+
+var getBaseUrl = function(){
+
+    console.log('url is:  ' + window.location.href)
+  if(window.location.href.includes('storyliner.org')){
+        
+        BASE_URL = 'http://storyliner.org'
+     
+     };
+  
+    
+
+
+
 }
 
 

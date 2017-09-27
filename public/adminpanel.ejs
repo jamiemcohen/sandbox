@@ -65,7 +65,7 @@
                     <div id = "modal-window">
                         <h2>{{sandbox.title}}</h2>
                         <p>{{sandbox.description}}</p>
-                        <p>{{arrayToString(sandbox.metadata)}}</p>
+                        <p id= "metadata">{{arrayToString(sandbox.metadata)}}</p>
                         
                             <img id="modal-photo-size" ng-if="!sandbox.url.includes('spotify') && !sandbox.url.includes('youtube')"ng-src = "{{sandbox.url}}">
                             <iframe id = "modal-media-size" ng-if="sandbox.url.includes('spotify') || sandbox.url.includes('youtube')" ng-src="{{trustSrc(sandbox.url)}}"  allowFullScreen='allowFullScreen' frameborder="0" allowtransparency="true"></iframe>
@@ -92,7 +92,7 @@
                  <div class="overlay">
                      <h3>{{archive.title}}</h3>
                      <p>{{archive.description}}</p>
-                     <p id= "metadata" >{{arrayToString(archive.metadata)}}</p>
+                     <p id= "metadata">{{arrayToString(archive.metadata)}}</p>
                 
                 </div>
             </a>
