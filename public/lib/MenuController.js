@@ -89,7 +89,7 @@ $('#upload-button').click(function() {
 });
 $('#settings-button').click(function() {           
    var path = window.location.href;
-   if(path.contains('localhost')){
+   if(path.includes('localhost')){
     path = path.replace('http://localhost:3000/edit', 'http://localhost:3000/maps');
    }else{
      path = path.replace('https://storyliner.org/edit', 'http://storyliner.org/maps');
