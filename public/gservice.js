@@ -197,7 +197,7 @@ angular.module('gservice', [])
         
             }
         
-        
+            return path;
         
         
         }
