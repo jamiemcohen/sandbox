@@ -75,12 +75,8 @@ angular.module('gservice', [])
             selectedLat = latitude;
             selectedLong = longitude;
         
-            var path = window.location.href;
-            if(path.includes('edit')){
-                path = path.replace('http://localhost:3000/edit/', '');
-            }else if(path.includes('maps')){
-                 path = path.replace('http://localhost:3000/maps/', '');
-            }
+            var path = getCurrentPath(window.location.href);
+            
             //console.log(path);
             var id = "";
             $http.get('/db/path/'+ path)
@@ -184,6 +180,28 @@ angular.module('gservice', [])
         
         };
     
+        var getCurrentPath = function(path){
+            if(path.includes('storyliner.org')){
+                 if(path.includes('edit')){
+                    path = path.replace('https://storyliner.org/edit/', '');
+                }else if(path.includes('maps')){
+                     path = path.replace('https://storyliner.org/maps/', '');
+                }
+            
+            }else{
+                if(path.includes('edit')){
+                    path = path.replace('http://localhost:3000/edit/', '');
+                }else if(path.includes('maps')){
+                     path = path.replace('http://localhost:3000/maps/', '');
+                }
+        
+            }
+        
+        
+        
+        
+        }
+    
         var initialize = function(latitude, longitude) {
 
         // Uses the selected lat, long as starting point
@@ -221,7 +239,7 @@ angular.module('gservice', [])
         });
             
         var currentMarker;
-        google.maps.event.addListener(map, 'dblclick', function(e){
+        google.maps.event.addListener(map, 'click', function(e){
                  placeMarker(e.latLng);
                 // When double-clicked, add the info to lat and long fields
                     $('#latitude').val( e.latLng.lat());
