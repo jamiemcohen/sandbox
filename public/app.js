@@ -1745,7 +1745,7 @@ var getBaseUrl = function(){
     console.log('url is:  ' + window.location.href)
   if(window.location.href.includes('storyliner.org')){
         
-        BASE_URL = 'http://storyliner.org'
+        BASE_URL = 'https://storyliner.org'
      
      };
   
