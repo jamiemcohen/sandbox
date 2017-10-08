@@ -331,7 +331,8 @@ app.controller('filestackCtrl', function($scope, $http){
             $scope.archive.url = spotifyLinkParse($scope.spotify);
         }
         
-        //add all fields to marker array
+        //refreshfields
+        refreshData();
         
         //push new array onto existing array
         $scope.map.myarchive.push({title: $scope.archive.title, link: $scope.archive.url});
@@ -353,6 +354,20 @@ app.controller('filestackCtrl', function($scope, $http){
             .error(function(data) {
                 console.log('Error: ' + data);
             });
+    };
+    
+    var refreshData = function(){
+        $http.get('../db/path/'+ path)
+        .success(function(data){
+            //console.log(JSON.stringify(data)); //DEBUG
+           $scope.map._id = data._id; //get map id
+           $scope.map.myarchive =data.myarchive; // get array ofmap archive
+           $scope.map.markers = data.markers; // get array of markers
+        })
+        .error(function(data) {
+            console.log('Error: ' + data);
+        });
+    
     };
 
 });
