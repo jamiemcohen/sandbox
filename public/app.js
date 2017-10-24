@@ -1,5 +1,5 @@
 
-var filestack_API_KEY = "AFc2GWMAzS0N11VVTPG4Vz";
+var filestack_API_KEY = "AAI0Id2GyQ3eNGkYaPo5gz";
 var key = "abcdhjlrslamdev2017";
 var app = angular.module('myApp', ['angular-filepicker','gservice']);
 var null_value_length = 4;
